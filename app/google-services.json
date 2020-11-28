@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1036666370030",
+    "firebase_url": "https://woohoo-23bee.firebaseio.com",
+    "project_id": "woohoo-23bee",
+    "storage_bucket": "woohoo-23bee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036666370030:android:51c2816c5df65644ef40ff",
+        "android_client_info": {
+          "package_name": "edu.ucsb.cs.cs184.qhong.woohoo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036666370030-de44em5m9e7ltnhgliillvspoll6uepb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5-0TJOBD6IpTyCqP56K07o_bJj_5EvXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036666370030-de44em5m9e7ltnhgliillvspoll6uepb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
