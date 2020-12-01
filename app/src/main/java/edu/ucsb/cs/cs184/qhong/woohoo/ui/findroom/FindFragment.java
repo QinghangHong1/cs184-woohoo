@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.ui.setting.SettingFragment;
-
+//YZ2nd: FindRoom Fragment
 public class FindFragment extends Fragment {
 
     private FindViewModel mViewModel;

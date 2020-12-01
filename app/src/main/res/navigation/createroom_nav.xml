@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/createroom_nav.xml"
     app:startDestination="@id/setting">
-
+    <!--YZ-->
     <fragment
         android:id="@+id/setting"
         android:name="edu.ucsb.cs.cs184.qhong.woohoo.ui.setting.SettingFragment"

@@ -25,7 +25,8 @@ import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.SettingActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.ui.gallery.GalleryFragment;
 import edu.ucsb.cs.cs184.qhong.woohoo.ui.setting.SettingFragment;
-
+//YZ2nd:HomeFragment
+//GOOD Quiz, create Room button, find room button.
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
