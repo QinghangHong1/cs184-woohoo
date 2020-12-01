@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/findroom_nav"
+    app:startDestination="@id/findFragment">
+
+
+    <fragment
+        android:id="@+id/findFragment"
+        android:name="edu.ucsb.cs.cs184.qhong.woohoo.ui.findroom.FindFragment"
+        android:label="find_fragment"
+        tools:layout="@layout/find_fragment" >
+        <action
+            android:id="@+id/action_findFragment_to_studentWaitingFragment"
+            app:destination="@id/studentWaitingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentWaitingFragment"
+        android:name="edu.ucsb.cs.cs184.qhong.woohoo.ui.waitroom.StudentWaitingFragment"
+        android:label="student_waiting_fragment"
+        tools:layout="@layout/student_waiting_fragment" />
+</navigation>
