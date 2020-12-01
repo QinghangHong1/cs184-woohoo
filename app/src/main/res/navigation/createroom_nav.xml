@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/createroom_nav.xml"
+    app:startDestination="@id/setting">
+
+    <fragment
+        android:id="@+id/setting"
+        android:name="edu.ucsb.cs.cs184.qhong.woohoo.ui.setting.SettingFragment"
+        android:label="setting_fragment"
+        tools:layout="@layout/setting_fragment" >
+        <action
+            android:id="@+id/action_setting_to_waitRoomFragment"
+            app:destination="@id/waitRoomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/waitRoomFragment"
+        android:name="edu.ucsb.cs.cs184.qhong.woohoo.ui.waitroom.WaitRoomFragment"
+        android:label="waitroom_fragment"
+        tools:layout="@layout/waitroom_fragment" />
+</navigation>
