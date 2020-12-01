@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+//YZ
 public class FindActivity extends AppCompatActivity {
 
     @Override
