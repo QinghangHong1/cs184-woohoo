@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
-
+//YZ2nd: wait room for teachers
 public class WaitRoomFragment extends Fragment {
 
     private WaitRoomViewModel mViewModel;

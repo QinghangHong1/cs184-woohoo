@@ -3,7 +3,7 @@ package edu.ucsb.cs.cs184.qhong.woohoo.ui.home;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
+//YZ2nd:HomeFragment
 public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;

@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
-
+//YZ2nd: Setting Fragment, quiz game room setting
 public class SettingFragment extends Fragment {
 
     private SettingViewModel mViewModel;
