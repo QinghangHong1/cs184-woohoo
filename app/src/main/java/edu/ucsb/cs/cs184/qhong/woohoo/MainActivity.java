@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,10 +28,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import edu.ucsb.cs.cs184.qhong.woohoo.ui.gallery.GalleryViewModel;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         //----------------------    Nov,28--  Jiajun Li     ------------------------
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
+        if(mainViewModel.isSignedIn()){
+//            Log.e("Tag","Signed in");
+            setAuthorizedUser();
+        }else{
+//            Log.e("Tag","Not Signed in");
+            setUnauthorizedUser();
+        }
+        TextView t = navigationView.getHeaderView(0).findViewById(R.id.nickname);
+//        Log.e("Tag", (String) t.getText());
         //add firebase for testing
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
@@ -82,8 +98,76 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("TAG", "Failed to read value.", error.toException());
             }
         });
+
+
         //----------------------    Nov,28--  Jiajun Li     ------------------------
     }
+
+    public void setUnauthorizedUser(){
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        TextView nickname = navigationView.getHeaderView(0).findViewById(R.id.nickname);
+        TextView email = navigationView.getHeaderView(0).findViewById(R.id.textView);
+        Button gotoLogin = navigationView.getHeaderView(0).findViewById(R.id.gotoLogin);
+        Button signout = navigationView.getHeaderView(0).findViewById(R.id.signOut);
+        signout.setVisibility(View.GONE);
+        nickname.setText("Please login to your account");
+        email.setVisibility(View.GONE);
+        gotoLogin.setVisibility(View.VISIBLE);
+        gotoLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    public void setAuthorizedUser(){
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        TextView nickname = navigationView.getHeaderView(0).findViewById(R.id.nickname);
+        Button gotoLogin = navigationView.getHeaderView(0).findViewById(R.id.gotoLogin);
+        TextView email = navigationView.getHeaderView(0).findViewById(R.id.textView);
+        Button signout = navigationView.getHeaderView(0).findViewById(R.id.signOut);
+        nickname.setText("Android Studio");
+        signout.setVisibility(View.VISIBLE);
+        email.setText(mainViewModel.getmEmail().getValue());
+        email.setVisibility(View.VISIBLE);
+        gotoLogin.setVisibility(View.GONE);
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainViewModel.signOut();
+                setUnauthorizedUser();
+            }
+        });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        Log.e("Tag","onResume");
+        mainViewModel.update();
+        if(mainViewModel.isSignedIn()){
+//            Log.e("Tag","Signed in");
+            setAuthorizedUser();
+        }else{
+//            Log.e("Tag","Not Signed in");
+            setUnauthorizedUser();
+        }
+    }
+
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        Log.e("Tag","onRestart");
+//        mainViewModel.update();
+//        Log.e("Tag",mainViewModel.getmEmail().getValue()+"asd");
+//        if(mainViewModel.isSignedIn()){
+//            Log.e("Tag","Signed in");
+//            setAuthorizedUser();
+//        }else{
+//            Log.e("Tag","Not Signed in");
+//            setUnauthorizedUser();
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
