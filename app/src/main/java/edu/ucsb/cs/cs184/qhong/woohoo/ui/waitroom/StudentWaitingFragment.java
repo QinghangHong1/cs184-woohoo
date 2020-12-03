@@ -11,12 +11,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 //YZ2nd: wait room for students
 public class StudentWaitingFragment extends Fragment {
 
-    private StudentWaitingViewModel mViewModel;
+    private FindViewModel mViewModel;
 
     public static StudentWaitingFragment newInstance() {
         return new StudentWaitingFragment();
@@ -31,7 +33,10 @@ public class StudentWaitingFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(StudentWaitingViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(FindViewModel.class);
+//
+//        TextView textCode = getActivity().findViewById(R.id.textCode);
+//        textCode.setText(mViewModel.getCode().getValue());
         // TODO: Use the ViewModel
     }
 
