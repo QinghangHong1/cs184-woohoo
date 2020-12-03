@@ -62,7 +62,7 @@ public class FindFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(FindViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(FindViewModel.class);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         curRoom = FirebaseDatabase.getInstance().getReference("CurrentRoom");;
@@ -73,7 +73,7 @@ public class FindFragment extends Fragment {
             public void onClick(View view) {
                 final EditText code = getActivity().findViewById(R.id.input_student_code);
 //                mViewModel.findRoom(Integer.parseInt(code.getText().toString()));
-//                mViewModel.setCode(Integer.parseInt(code.getText().toString()));
+                mViewModel.setCode(Integer.parseInt(code.getText().toString()));
                 curRoom.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
