@@ -13,7 +13,7 @@ public class Game {
         this.players = new ArrayList<Player>();
         this.gameSetting = gameSetting;
     }
-    private void addPlayer(Player player){
+    public void addPlayer(Player player){
         players.add(player);
     }
 
