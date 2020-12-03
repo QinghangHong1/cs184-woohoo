@@ -33,10 +33,10 @@ public class StudentWaitingFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(FindViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(FindViewModel.class);
 //
-//        TextView textCode = getActivity().findViewById(R.id.textCode);
-//        textCode.setText(mViewModel.getCode().getValue());
+        TextView textCode = getActivity().findViewById(R.id.textCode);
+        textCode.setText(""+mViewModel.getCode().getValue());
         // TODO: Use the ViewModel
     }
 
