@@ -1,18 +1,32 @@
 package edu.ucsb.cs.cs184.qhong.woohoo.utils;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
     private int roomId;
     private ProblemSet problemSet;
     private ArrayList<Player> players;
-    private GameSetting gameSetting;
+    private int timePerQuestion;
 
-    public Game(ProblemSet problemSet, GameSetting gameSetting) {
+    public Game(){
+        this.players = new ArrayList<Player>();
+        this.timePerQuestion = 0;
+        generateGameID();
+    }
+
+    public Game(ProblemSet problemSet) {
         this.problemSet = problemSet;
         this.players = new ArrayList<Player>();
-        this.gameSetting = gameSetting;
+        this.timePerQuestion = 0;
+        generateGameID();
     }
+    public Game(int roomId){
+        this.players = new ArrayList<Player>();
+        this.timePerQuestion = 0;
+        this.roomId = roomId;
+    }
+
     public void addPlayer(Player player){
         players.add(player);
     }
@@ -29,4 +43,19 @@ public class Game {
         }
         return null;
     }
+    public void generateGameID(){
+        Random rnd = new Random();
+        int code = rnd.nextInt(10000);
+        roomId = code;
+    }
+
+    public void setTimePerQuestion(int timePerQuestion) {
+        this.timePerQuestion = timePerQuestion;
+    }
+
+    public int getTimePerQuestion() {
+        return timePerQuestion;
+    }
+
+    public int getRoomId(){return roomId;}
 }
