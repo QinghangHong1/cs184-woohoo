@@ -6,6 +6,10 @@ public class Problem {
     private String question;
     private ArrayList<String> answer_choices;
 
+    public Problem() {
+        answer_choices = new ArrayList<>();
+    }
+
     public String getQuestion() {
         return question;
     }
