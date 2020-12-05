@@ -11,12 +11,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
+import edu.ucsb.cs.cs184.qhong.woohoo.SettingViewModel;
+
 //YZ2nd: wait room for teachers
 public class WaitRoomFragment extends Fragment {
 
-    private WaitRoomViewModel mViewModel;
+    private SettingViewModel mViewModel;
 
     public static WaitRoomFragment newInstance() {
         return new WaitRoomFragment();
@@ -31,7 +35,12 @@ public class WaitRoomFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(WaitRoomViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(SettingViewModel.class);
+//
+        TextView textCode = getActivity().findViewById(R.id.textCode);
+        textCode.setText("Room ID:"+mViewModel.getCode().getValue());
+        TextView textName = getActivity().findViewById(R.id.textName);
+        textName.setText("Problem Set Name:"+mViewModel.getProbSetName().getValue());
         // TODO: Use the ViewModel
     }
 

@@ -10,14 +10,27 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.SettingViewModel;
+import edu.ucsb.cs.cs184.qhong.woohoo.ui.findroom.FindFragment;
 
 //YZ2nd: Setting Fragment, quiz game room setting
 public class SettingFragment extends Fragment {
@@ -50,24 +63,66 @@ public class SettingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        settingViewModel = ViewModelProviders.of(this).get(SettingViewModel.class);
 
-        final TextView timePerQuestion = getActivity().findViewById(R.id.inputTimePerQues);
+//
+//        settingViewModel = ViewModelProviders.of(this).get(SettingViewModel.class);
+//        final TextView timePerQuestion = getActivity().findViewById(R.id.inputTimePerQues);
+//
+//        Button settingCreateButton = getActivity().findViewById(R.id.settingCreateButton);
+//        settingCreateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int time = Integer.parseInt(timePerQuestion.getText().toString());
+//                settingViewModel.setTimePerQuestion(time);
+//                settingViewModel.update();
+//                NavHostFragment.findNavController(SettingFragment.this)
+//                        .navigate(R.id.action_setting_to_waitRoomFragment);
+//            }
+//        });
+        //1.Jiajun original code in meeting
+        //2.Yiwei adjusted it on 12.4-12.6
+        settingViewModel = new ViewModelProvider(getActivity()).get(SettingViewModel.class);
+
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("ProblemSet");
+
+
+
 
         Button settingCreateButton = getActivity().findViewById(R.id.settingCreateButton);
         settingCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int time = Integer.parseInt(timePerQuestion.getText().toString());
-                settingViewModel.setTimePerQuestion(time);
-                settingViewModel.update();
-                NavHostFragment.findNavController(SettingFragment.this)
-                        .navigate(R.id.action_setting_to_waitRoomFragment);
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    final EditText ProblemSetName = getActivity().findViewById(R.id.input2);
+                    final EditText timePerQuestion = getActivity().findViewById(R.id.inputTimePerQues);
+                    private String temp = ProblemSetName.getText().toString();
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.hasChild(""+ProblemSetName.getText().toString())){
+                            int time = Integer.parseInt(timePerQuestion.getText().toString());
+                            settingViewModel.setTimePerQuestion(time);
+                            settingViewModel.setProbSetName(ProblemSetName.getText().toString());
+                            settingViewModel.update();
+                            NavHostFragment.findNavController(SettingFragment.this)
+                                    .navigate(R.id.action_setting_to_waitRoomFragment);
+                        }else{
+                            Toast.makeText(getContext(), "The problem set is not exist, please enter correct problem set name or upload your problem set!",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
         // TODO: Use the ViewModel
     }
-
-
 
 }

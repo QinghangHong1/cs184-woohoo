@@ -13,7 +13,7 @@ public class HomeViewModel extends ViewModel {
 
     public HomeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Good Quiz");
+        mText.setValue("Welcome to Woohoo, create or find your quiz!");
         buttonCreateText = new MutableLiveData<>();
         buttonCreateText.setValue("Create Room");
         buttonFindText = new MutableLiveData<>();
