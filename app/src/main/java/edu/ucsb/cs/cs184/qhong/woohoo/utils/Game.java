@@ -3,11 +3,14 @@ package edu.ucsb.cs.cs184.qhong.woohoo.utils;
 import java.util.ArrayList;
 import java.util.Random;
 
+import kotlin.text.UStringsKt;
+
 public class Game {
     private int roomId;
     private ProblemSet problemSet;
     private ArrayList<Player> players;
     private int timePerQuestion;
+    private String ProblemSetName;
 
     public Game(){
         this.players = new ArrayList<Player>();
@@ -51,6 +54,10 @@ public class Game {
 
     public void setTimePerQuestion(int timePerQuestion) {
         this.timePerQuestion = timePerQuestion;
+    }
+
+    public void setProblemSetName(String setName) {
+        this.ProblemSetName = setName;
     }
 
     public int getTimePerQuestion() {

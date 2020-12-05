@@ -73,13 +73,14 @@ public class FindFragment extends Fragment {
             public void onClick(View view) {
                 final EditText code = getActivity().findViewById(R.id.input_student_code);
 //                mViewModel.findRoom(Integer.parseInt(code.getText().toString()));
-                mViewModel.setCode(Integer.parseInt(code.getText().toString()));
+//                mViewModel.setCode(Integer.parseInt(code.getText().toString())); 被移动
                 curRoom.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.hasChild("Room"+code.getText().toString())){
 //                            mViewModel.setmGame(new Game(Integer.parseInt(code.getText().toString())));
 //                            Log.e("Tag",""+mViewModel.getmGame().getValue().getRoomId());
+                            mViewModel.setCode(Integer.parseInt(code.getText().toString()));
                             NavHostFragment.findNavController(FindFragment.this)
                                     .navigate(R.id.action_findFragment_to_studentWaitingFragment);
                         }else{
