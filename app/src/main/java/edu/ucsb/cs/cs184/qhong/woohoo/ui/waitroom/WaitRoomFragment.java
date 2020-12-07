@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.MainActivity;
@@ -53,6 +56,13 @@ public class WaitRoomFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("CurrentRoom");
+                DatabaseReference curRoom = myRef.child("Room"+ mViewModel.getCode().getValue());
+                Log.e("time",
+                        "in data change, room id is :"+"Room"+ mViewModel.getCode().getValue());
+                DatabaseReference start = curRoom.child("start");
+                start.setValue(1);
                 // Use the start button in wait room to translate to the quiz activity
                 Intent intent=new Intent(getActivity(), QuizActivity.class);
                 startActivity(intent);
