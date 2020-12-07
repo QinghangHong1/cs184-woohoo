@@ -34,5 +34,13 @@ public class ProblemSet {
     public int getNumProblems() {
         return problems.size();
     }
+
+    @Override
+    public String toString() {
+        return "ProblemSet{" +
+                "problems=" + problems +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
 
