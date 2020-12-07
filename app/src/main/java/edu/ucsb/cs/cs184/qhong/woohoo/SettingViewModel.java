@@ -44,7 +44,6 @@ public class SettingViewModel extends ViewModel {
         PSetName.setValue("");
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
     }
 
     public MutableLiveData<Game> getmGame() {
@@ -58,12 +57,13 @@ public class SettingViewModel extends ViewModel {
     }
     public MutableLiveData<Integer> getCode(){return code;}
 
+
     public void setTimePerQuestion(int time){
         mGame.getValue().setTimePerQuestion(time);
     }
 
 
-    public void update(){
+    public void initialize(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("CurrentRoom");
 
@@ -81,9 +81,14 @@ public class SettingViewModel extends ViewModel {
         DatabaseReference player = curRoom.child("Player");
         player.setValue("Player0");
 
+        // add current quiz index(int)
+        DatabaseReference quizIndex = curRoom.child("QuizIndex");
+        quizIndex.setValue(0);
 
+        // add start value(int)
+        DatabaseReference start = curRoom.child("start");
+        start.setValue(0);
     }
-
 
 
 }

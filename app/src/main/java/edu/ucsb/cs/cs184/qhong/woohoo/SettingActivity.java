@@ -5,11 +5,15 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.Serializable;
+
 //YZ: Create(setting) Room Activity
 public class SettingActivity extends AppCompatActivity {
 
@@ -19,6 +23,10 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+//        Intent intent = new Intent(SettingActivity.this, QuizActivity.class);
+//        intent.putExtra("mGame", (Serializable) settingViewModel.getmGame().getValue());
+//        startActivity(intent);
 
         FloatingActionButton fab = findViewById(R.id.fab1);
         fab.setOnClickListener(new View.OnClickListener() {

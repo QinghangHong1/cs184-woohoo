@@ -19,7 +19,6 @@ public class ProblemSet {
         this.name = name;
     }
 
-
     public ProblemSet(ArrayList<Problem> problems) {
         this.problems = problems;
 //        this.numProblems = problems.size();

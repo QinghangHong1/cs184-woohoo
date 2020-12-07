@@ -31,6 +31,7 @@ import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.SettingViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.ui.findroom.FindFragment;
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.ProblemSet;
 
 //YZ2nd: Setting Fragment, quiz game room setting
 public class SettingFragment extends Fragment {
@@ -81,16 +82,14 @@ public class SettingFragment extends Fragment {
 //        });
         //1.Jiajun original code in meeting
         //2.Yiwei adjusted it on 12.4-12.6
+        //3.Haochen adjust the function name update => initialize and add functionality of
+        // obtaining the problem set from the firebase
         settingViewModel = new ViewModelProvider(getActivity()).get(SettingViewModel.class);
-
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("ProblemSet");
-
-
-
 
         Button settingCreateButton = getActivity().findViewById(R.id.settingCreateButton);
         settingCreateButton.setOnClickListener(new View.OnClickListener() {
@@ -106,8 +105,20 @@ public class SettingFragment extends Fragment {
                         if(snapshot.hasChild(""+ProblemSetName.getText().toString())){
                             int time = Integer.parseInt(timePerQuestion.getText().toString());
                             settingViewModel.setTimePerQuestion(time);
+                            Log.e("time",
+                                    "in data change, time is: "+settingViewModel.getmGame().getValue().getTimePerQuestion());
+                            Log.e("time",
+                                    "in data change, room id is :"+settingViewModel.getmGame().getValue().getRoomId());
                             settingViewModel.setProbSetName(ProblemSetName.getText().toString());
-                            settingViewModel.update();
+                            settingViewModel.initialize();
+
+                            // get problem set from the firebase
+//                            ProblemSet problemSet = snapshot.getValue(ProblemSet.class);
+//                            Log.e("log", "problem set name is: "+problemSet.getName());
+//                            for(int i = 0; i < problemSet.getNumProblems(); i++){
+//                                Log.e("log",
+//                                        "problem index is: "+i+" problem name is: "+problemSet.getProblems().get(i));
+//                            }
                             NavHostFragment.findNavController(SettingFragment.this)
                                     .navigate(R.id.action_setting_to_waitRoomFragment);
                         }else{
