@@ -14,6 +14,15 @@ public class Problem {
         return question;
     }
 
+    @Override
+    public String toString() {
+        return "Problem{" +
+                "question='" + question + '\'' +
+                ", answer_choices=" + answer_choices +
+                ", true_answer_index=" + true_answer_index +
+                '}';
+    }
+
     public void setQuestion(String question) {
         this.question = question;
     }

@@ -22,8 +22,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.utils.Problem;
@@ -88,20 +93,20 @@ public class UploadFragment extends Fragment {
                     return;
                 }
                 ProblemSet problemSet = uploadViewModel.getProblemSet().getValue();
-                Log.d("name", String.valueOf(problemSet.getProblems()));
+
                 String name = problemSet.getName();
                 DatabaseReference problemSetRef = FirebaseDatabase.getInstance().getReference("ProblemSet");
                 DatabaseReference curSet = problemSetRef.child(name);
-                Log.e("in finish123", "hello");
-                for (int i = 0; i < problemSet.getNumProblems(); i++){
-                    Problem p = problemSet.getProblems().get(i);
-                    DatabaseReference currentProblemRef = curSet.child(String.valueOf(i));
-                    DatabaseReference currentQuestionRef = currentProblemRef.child("question");
-                    currentQuestionRef.setValue(p.getQuestion());
-                    currentProblemRef.child("answers").setValue(p.getAnswer_choices());
-                    currentProblemRef.child("true_answer_index").setValue(p.getTrue_answer_index());
-                    Log.e("in finish", "hello");
-                }
+                curSet.setValue(problemSet);
+//                for (int i = 0; i < problemSet.getNumProblems(); i++){
+//                    Problem p = problemSet.getProblems().get(i);
+//                    DatabaseReference currentProblemRef = curSet.child(String.valueOf(i));
+//                    DatabaseReference currentQuestionRef = currentProblemRef.child("question");
+//                    currentQuestionRef.setValue(p.getQuestion());
+//                    currentProblemRef.child("answers").setValue(p.getAnswer_choices());
+//                    currentProblemRef.child("true_answer_index").setValue(p.getTrue_answer_index());
+//
+//                }
 
                 EditText problem_set_name_text = (EditText)getActivity().findViewById(R.id.problem_set_name);
                 problem_set_name_text.getText().clear();
