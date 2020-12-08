@@ -86,8 +86,8 @@ public class SettingViewModel extends ViewModel {
         quizIndex.setValue(0);
 
         // add start value(int)
-        DatabaseReference start = curRoom.child("start");
-        start.setValue(0);
+//        DatabaseReference start = curRoom.child("start");
+//        start.setValue(0);
     }
 
 
