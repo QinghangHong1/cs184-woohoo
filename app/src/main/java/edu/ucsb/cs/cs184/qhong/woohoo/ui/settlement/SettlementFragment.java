@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.MainActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.QuizActivity;
@@ -38,16 +41,19 @@ public class SettlementFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SettlementViewModel.class);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String uid = currentUser.getUid();
 
-        FloatingActionButton fab = getActivity().findViewById(R.id.buttonBackToHome);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Use the start button in wait room to translate to the quiz activity
-                Intent intent=new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        FloatingActionButton fab = getActivity().findViewById(R.id.buttonBackToHome);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Use the start button in wait room to translate to the quiz activity
+//                Intent intent=new Intent(getActivity(), MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
 }

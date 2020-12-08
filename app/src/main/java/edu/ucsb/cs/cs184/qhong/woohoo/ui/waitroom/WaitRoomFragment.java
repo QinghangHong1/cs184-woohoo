@@ -55,6 +55,7 @@ public class WaitRoomFragment extends Fragment {
             public void onClick(View v) {
                 // Use the start button in wait room to translate to the quiz activity
                 Intent intent=new Intent(getActivity(), QuizActivity.class);
+                intent.putExtra("rood_id", mViewModel.getCode().getValue());
                 startActivity(intent);
             }
         });
