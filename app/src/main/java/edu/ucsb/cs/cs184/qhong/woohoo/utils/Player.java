@@ -1,13 +1,24 @@
 package edu.ucsb.cs.cs184.qhong.woohoo.utils;
 
-public class Player {
-    private String username;
-    private int userId;
-    private int score;
+public class Player implements Comparable<Player> {
+    public String getUid() {
+        return uid;
+    }
 
-    public Player(String username, int userId) {
-        this.username = username;
-        this.userId = userId;
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    //    private String username;
+    private String uid;
+    private int score;
+    public Player(){
+
+    }
+    public Player(String uid, int score) {
+
+        this.uid = uid;
+        this.score = score;
     }
 
     public int getScore() {
@@ -19,6 +30,19 @@ public class Player {
     }
     public void addScore(int score) {
         this.score += score;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "uid='" + uid + '\'' +
+                ", score=" + score +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return Integer.compare(score, o.getScore());
     }
 //    public void joinGame(Game game) {
 //

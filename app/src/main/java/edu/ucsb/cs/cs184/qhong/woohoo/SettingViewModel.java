@@ -24,8 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import edu.ucsb.cs.cs184.qhong.woohoo.ui.findroom.FindFragment;
 import edu.ucsb.cs.cs184.qhong.woohoo.utils.Game;
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.Player;
 
 public class SettingViewModel extends ViewModel {
 
@@ -78,8 +81,15 @@ public class SettingViewModel extends ViewModel {
         DatabaseReference timePerQuestion = curRoom.child("TimePerQuestion");
         timePerQuestion.setValue(mGame.getValue().getTimePerQuestion());
 
-        DatabaseReference player = curRoom.child("Player");
-        player.setValue("Player0");
+        DatabaseReference player = curRoom.child("players");
+        ArrayList<Player> players = new ArrayList<>();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String uid = currentUser.getUid();
+        Log.d("u id", uid);
+        players.add(new Player(uid, 0));
+        Log.d("players", players.toString());
+        player.setValue(players);
 
         // add current quiz index(int)
         DatabaseReference quizIndex = curRoom.child("QuizIndex");
