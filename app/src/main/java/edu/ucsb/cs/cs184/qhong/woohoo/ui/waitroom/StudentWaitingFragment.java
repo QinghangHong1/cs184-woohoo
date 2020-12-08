@@ -58,17 +58,21 @@ public class StudentWaitingFragment extends Fragment {
         DatabaseReference curRoom = myRef.child("Room"+ mViewModel.getCode().getValue());
 
 
-        curRoom.addListenerForSingleValueEvent(new ValueEventListener() {
+//        curRoom.addListenerForSingleValueEvent(new ValueEventListener() {
+        curRoom.addValueEventListener(new ValueEventListener() {
+
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChild("start")){
-                    Intent intent=new Intent(getActivity(), QuizActivity.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(getContext(), "Quiz is going to start!",
-                            Toast.LENGTH_LONG).show();
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.hasChild("start")){
+                        Intent intent=new Intent(getActivity(), QuizActivity.class);
+                        // Qinghang Hong 12/08 transfer room id to next activity
+                        intent.putExtra("room_id", mViewModel.getCode().getValue());
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getContext(), "Quiz is going to start!",
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
