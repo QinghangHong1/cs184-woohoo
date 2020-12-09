@@ -24,12 +24,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.ui.setting.SettingFragment;
 import edu.ucsb.cs.cs184.qhong.woohoo.utils.Game;
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.Player;
 
 //YZ2nd: FindRoom Fragment
 public class FindFragment extends Fragment {
@@ -64,7 +68,7 @@ public class FindFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(FindViewModel.class);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
         curRoom = FirebaseDatabase.getInstance().getReference("CurrentRoom");;
 
         Button start = getActivity().findViewById(R.id.button_student_start);
@@ -81,8 +85,20 @@ public class FindFragment extends Fragment {
 //                            mViewModel.setmGame(new Game(Integer.parseInt(code.getText().toString())));
 //                            Log.e("Tag",""+mViewModel.getmGame().getValue().getRoomId());
                             mViewModel.setCode(Integer.parseInt(code.getText().toString()));
-                            NavHostFragment.findNavController(FindFragment.this)
-                                    .navigate(R.id.action_findFragment_to_studentWaitingFragment);
+                            // QH 12/09 add current player to player list of the joined room
+                            if (currentUser != null){
+                                String uid = currentUser.getUid();
+                                GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {};
+                                ArrayList<Player> players = (ArrayList<Player>)snapshot.child("Room" + code.getText().toString()).child("players").getValue(t);
+                                players.add(new Player(uid, 0));
+                                curRoom.child("Room" + code.getText().toString()).child("players").setValue(players);
+                                NavHostFragment.findNavController(FindFragment.this)
+                                        .navigate(R.id.action_findFragment_to_studentWaitingFragment);
+                            }else {
+                                Toast.makeText(getContext(), "Sign in first!",
+                                        Toast.LENGTH_LONG).show();
+                            }
+
                         }else{
                             Toast.makeText(getContext(), "Invalid Code!",
                                     Toast.LENGTH_LONG).show();
