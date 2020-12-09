@@ -59,7 +59,7 @@ public class SettlementFragment extends Fragment {
         quizViewModel = new ViewModelProvider(getActivity()).get(QuizViewModel.class);
         Log.e("hello", "there");
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         Log.d("current room", "Room" + quizViewModel.getCode().getValue());
@@ -79,16 +79,36 @@ public class SettlementFragment extends Fragment {
 
             }
         });
+        final boolean[] isHost = new boolean[1];
+        DatabaseReference curRoomHostRef = firebaseDatabase.getReference("CurrentRoom").child("Room" + quizViewModel.getCode().getValue()).child("host_uid");
+        curRoomHostRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String host_uid = snapshot.getValue(String.class);
+                if (host_uid.equals(currentUser.getUid())){
+                    isHost[0] = true;
+                }else{
+                    isHost[0] = false;
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         FloatingActionButton fab = getActivity().findViewById(R.id.buttonBackToHome);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
-//                DatabaseReference curRoomRef = firebaseDatabase1.getReference("CurrentRoom").child("Room" + quizViewModel.getCode().getValue());
-//                curRoomRef.removeValue();
+                if (isHost[0]) {
+                    FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
+                    DatabaseReference curRoomRef = firebaseDatabase1.getReference("CurrentRoom").child("Room" + quizViewModel.getCode().getValue());
+                    curRoomRef.removeValue();
+                }
+
                 // Use the start button in wait room to translate to the quiz activity
                 Intent intent=new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
