@@ -7,22 +7,23 @@
     tools:context=".ui.quiz.QuizCorrectAnswerFragment">
 
     <TextView
-        android:id="@+id/questions"
+        android:id="@+id/questions2"
         android:layout_width="354dp"
         android:layout_height="150dp"
-        android:text="Question"
+        android:text="123"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.17000002" />
+        app:layout_constraintVertical_bias="0.23" />
 
     <TextView
         android:id="@+id/timeInQuiz2"
         android:layout_width="121dp"
         android:layout_height="40dp"
-        android:text="Time"
-        app:layout_constraintBottom_toTopOf="@+id/questions"
+        android:text="123"
+        app:layout_constraintBottom_toTopOf="@+id/questions2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +34,7 @@
         android:id="@+id/correctAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="show the correct answer"
+        android:text="123"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"

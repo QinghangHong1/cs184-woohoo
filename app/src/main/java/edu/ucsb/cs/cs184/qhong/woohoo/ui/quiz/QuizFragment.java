@@ -16,7 +16,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Set;
 import java.util.Timer;
@@ -29,12 +37,16 @@ import edu.ucsb.cs.cs184.qhong.woohoo.SettingViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.ui.setting.SettingFragment;
 import edu.ucsb.cs.cs184.qhong.woohoo.utils.Game;
 import edu.ucsb.cs.cs184.qhong.woohoo.QuizViewModel;
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.Problem;
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.ProblemSet;
 
 public class QuizFragment extends Fragment {
 
     private QuizViewModel mViewModel;
     private TextView timeView;
     private TextView quesIndexView;
+    private TextView questionView;
+    private Button ansButton;
 
     public static QuizFragment newInstance() {
         return new QuizFragment();
@@ -51,37 +63,73 @@ public class QuizFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(QuizViewModel.class);
 
-        // check if the current question index excess the size of questions,
-        // if so, translate to the settlement page
-        // otherwise, update the question index
         quesIndexView = getActivity().findViewById(R.id.questionIndex);
         Game game = mViewModel.getmGame().getValue();
 
-        Log.e("problem index", "problem index is: "+game.getCurrentProblemIndex());
         quesIndexView.setText(game.getCurrentProblemIndex()+"");
-        game.updateCurrentProblemIndex();
 
-        // get the timer
-        timeView = getActivity().findViewById(R.id.timeInQuiz);
-//        int time = game.getTimePerQuestion();
-        int time = 5;
-        Log.e("time", "in quiz fragment, time is:"+time);
-        Log.e("time",
-                "in quiz fragment, room id is :"+mViewModel.getCode().getValue());
-        CountDownTimer countDownTimer = new CountDownTimer(time * 1000, 1 * 1000) {
+        final String problemSet_name = mViewModel.getmGame().getValue().getProblemSetName();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("ProblemSet");
+
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onTick(long millisUntilFinished) {
-                timeView.setText(millisUntilFinished / 1000 + "s");
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild(problemSet_name)){
+                    ProblemSet problemSet =
+                            snapshot.child(problemSet_name).getValue(ProblemSet.class);
+                    mViewModel.getmGame().getValue().setProblemSet(problemSet);
+
+                    // put the question and answers into the page
+                    Game game = mViewModel.getmGame().getValue();
+                    Problem problem = game.getProblem(game.getCurrentProblemIndex()-1);
+                    questionView = getActivity().findViewById(R.id.questions1);
+                    questionView.setText(problem.getQuestion());
+
+                    ansButton = getActivity().findViewById(R.id.button1);
+                    ansButton.setText(problem.getAnswer_choices().get(0));
+
+                    ansButton = getActivity().findViewById(R.id.button2);
+                    ansButton.setText(problem.getAnswer_choices().get(1));
+
+                    ansButton = getActivity().findViewById(R.id.button3);
+                    ansButton.setText(problem.getAnswer_choices().get(2));
+
+                    ansButton = getActivity().findViewById(R.id.button4);
+                    ansButton.setText(problem.getAnswer_choices().get(3));
+
+                    // get the timer
+                    timeView = getActivity().findViewById(R.id.timeInQuiz);
+                    int time = game.getTimePerQuestion();
+                    CountDownTimer countDownTimer = new CountDownTimer(time * 1000, 1 * 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            timeView.setText(millisUntilFinished / 1000 + "s");
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            // translate to correct answer page
+                            NavHostFragment.findNavController(QuizFragment.this)
+                                    .navigate(R.id.action_quizFragment_to_quizCorrectAnswerFragment);
+                        }
+                    };
+
+                    // update the current problem index
+                    game.updateCurrentProblemIndex();
+                    countDownTimer.start();
+
+                }else{
+                    Toast.makeText(getContext(), "The problem set do not exist, please" +
+                                    " wait for a moment!",
+                            Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
-            public void onFinish() {
-                // translate to correct answer page
-                NavHostFragment.findNavController(QuizFragment.this)
-                        .navigate(R.id.action_quizFragment_to_quizCorrectAnswerFragment);
-            }
-        };
-        countDownTimer.start();
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
     }
 }

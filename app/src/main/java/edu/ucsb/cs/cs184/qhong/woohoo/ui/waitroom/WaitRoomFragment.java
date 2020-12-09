@@ -63,10 +63,18 @@ public class WaitRoomFragment extends Fragment {
                         "in data change, room id is :"+"Room"+ mViewModel.getCode().getValue());
                 DatabaseReference start = curRoom.child("start");
                 start.setValue(1);
+
                 // Use the start button in wait room to translate to the quiz activity
-                Intent intent=new Intent(getActivity(), QuizActivity.class);
                 // Qinghang 12/08 transfer room id to next activity
-                intent.putExtra("room_id", mViewModel.getCode().getValue());
+                // Haochen 12/9 add problem set name, and time per questions data when
+                // transfer to other activities
+                Intent intent=new Intent(getActivity(), QuizActivity.class);
+
+                Bundle data = new Bundle();
+                data.putInt("room_id", mViewModel.getCode().getValue());
+                data.putString("problemSet_name", mViewModel.getProbSetName().getValue());
+                data.putInt("time_per_ques", mViewModel.getmGame().getValue().getTimePerQuestion());
+                intent.putExtras(data);
 
                 startActivity(intent);
             }

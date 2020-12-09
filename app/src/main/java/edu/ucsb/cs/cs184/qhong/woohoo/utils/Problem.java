@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Problem {
     private String question;
     private ArrayList<String> answer_choices;
+    private int true_answer_index;
 
     public Problem() {
         answer_choices = new ArrayList<>();
@@ -27,6 +28,7 @@ public class Problem {
         this.question = question;
     }
 
+
     public ArrayList<String> getAnswer_choices() {
         return answer_choices;
     }
@@ -39,16 +41,11 @@ public class Problem {
         return true_answer_index;
     }
 
-    public void setTrue_answer_index(int true_answer_index) {
-        this.true_answer_index = true_answer_index;
-    }
+    public void setTrue_answer_index(int true_answer_index) { this.true_answer_index = true_answer_index; }
 
     public Problem(String question, ArrayList<String> answer_choices, int true_answer_index) {
         this.question = question;
         this.answer_choices = answer_choices;
         this.true_answer_index = true_answer_index;
     }
-
-    private int true_answer_index;
-
 }

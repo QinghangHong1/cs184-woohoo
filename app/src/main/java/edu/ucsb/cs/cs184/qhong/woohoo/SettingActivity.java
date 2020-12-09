@@ -24,10 +24,6 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-//        Intent intent = new Intent(SettingActivity.this, QuizActivity.class);
-//        intent.putExtra("mGame", (Serializable) settingViewModel.getmGame().getValue());
-//        startActivity(intent);
-
         FloatingActionButton fab = findViewById(R.id.fab1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

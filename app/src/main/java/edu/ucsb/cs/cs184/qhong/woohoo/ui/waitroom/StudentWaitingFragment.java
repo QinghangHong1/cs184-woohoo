@@ -57,16 +57,28 @@ public class StudentWaitingFragment extends Fragment {
         DatabaseReference myRef = database.getReference("CurrentRoom");
         DatabaseReference curRoom = myRef.child("Room"+ mViewModel.getCode().getValue());
 
-
 //        curRoom.addListenerForSingleValueEvent(new ValueEventListener() {
         curRoom.addValueEventListener(new ValueEventListener() {
-
+            final Intent intent=new Intent(getActivity(), QuizActivity.class);
+            Bundle data = new Bundle();
             @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Qinghang Hong 12/08 transfer room id to next activity
+                    // Haochen 12/9 add problem set name, and time per questions data when
+                    // transfer to other activities
+                    if(snapshot.hasChild("ProblemSet")){
+                        data.putString("problemSet_name", (String) snapshot.child("ProblemSet").getValue());
+                    }
+
+                    if(snapshot.hasChild("TimePerQuestion")){
+                        Integer timePerQuestion =
+                                ((Long)snapshot.child("TimePerQuestion").getValue()).intValue();
+                        data.putInt("time_per_ques", timePerQuestion);
+                    }
+
                     if(snapshot.hasChild("start")){
-                        Intent intent=new Intent(getActivity(), QuizActivity.class);
-                        // Qinghang Hong 12/08 transfer room id to next activity
-                        intent.putExtra("room_id", mViewModel.getCode().getValue());
+                        data.putInt("room_id", mViewModel.getCode().getValue());
+                        intent.putExtras(data);
                         startActivity(intent);
                     }else{
                         Toast.makeText(getContext(), "Quiz is going to start!",
