@@ -57,19 +57,19 @@ public class SettlementFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         quizViewModel = new ViewModelProvider(getActivity()).get(QuizViewModel.class);
-        Log.e("hello", "there");
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        Log.d("current room", "Room" + quizViewModel.getCode().getValue());
+
         DatabaseReference playersRef = firebaseDatabase.getReference("CurrentRoom").child("Room" + quizViewModel.getCode().getValue()).child("players");
         playersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {};
                 ArrayList<Player> players = (ArrayList<Player>)snapshot.getValue(t);
-                Log.e("players", players.toString());
+
                 displayRanking(players);
 
             }
