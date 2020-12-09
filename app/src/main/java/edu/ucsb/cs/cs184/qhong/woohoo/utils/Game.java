@@ -56,8 +56,7 @@ public class Game{
     // if the current index is smaller than size, return true
     // otherwise, return false
     public boolean checkIndex(){
-//        Log.e("log", "size is:"+problemSet.getNumProblems()+"");
-        int size = 3;
+        int size = problemSet.getNumProblems();
         return currentProblemIndex <= size;
     }
 
@@ -71,7 +70,7 @@ public class Game{
 
     // return the problem in specific index
     public Problem getProblem(int index){
-        if(index < problemSet.getNumProblems()) return problemSet.getProblems().get(currentProblemIndex);
+        if(index < problemSet.getNumProblems()) return problemSet.getProblems().get(index);
 
         Log.e("issue", "there is no problem in problem set in getProblem function!");
         return null;
@@ -91,9 +90,13 @@ public class Game{
         this.ProblemSetName = setName;
     }
 
+    public String getProblemSetName() { return ProblemSetName; }
+
     public int getTimePerQuestion() {
         return timePerQuestion;
     }
+
+    public void setRoomId(int roomId) { this.roomId = roomId; }
 
     public int getRoomId(){return roomId;}
 
@@ -103,5 +106,18 @@ public class Game{
 
     public void setProblemSet(ProblemSet problemSet) {
         this.problemSet = problemSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "roomId=" + roomId +
+                ", problemSet=" + problemSet +
+                ", players=" + players +
+                ", timePerQuestion=" + timePerQuestion +
+                ", ProblemSetName='" + ProblemSetName + '\'' +
+                ", currentProblemIndex=" + currentProblemIndex +
+                ", host_uid='" + host_uid + '\'' +
+                '}';
     }
 }
