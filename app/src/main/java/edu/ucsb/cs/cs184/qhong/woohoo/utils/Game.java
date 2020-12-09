@@ -1,13 +1,9 @@
 package edu.ucsb.cs.cs184.qhong.woohoo.utils;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import kotlin.text.UStringsKt;
 
 public class Game{
     private int roomId;
@@ -16,6 +12,16 @@ public class Game{
     private int timePerQuestion;
     private String ProblemSetName;
     private int currentProblemIndex;
+
+    public String getHost_uid() {
+        return host_uid;
+    }
+
+    public void setHost_uid(String host_uid) {
+        this.host_uid = host_uid;
+    }
+
+    private String host_uid;
 
     public Game(){
         this.players = new ArrayList<Player>();

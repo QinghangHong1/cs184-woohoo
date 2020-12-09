@@ -86,7 +86,8 @@ public class SettingViewModel extends ViewModel {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String uid = currentUser.getUid();
-        Log.d("u id", uid);
+        // QH add host
+        curRoom.child("host_uid").setValue(uid);
         players.add(new Player(uid, 0));
         Log.d("players", players.toString());
         player.setValue(players);

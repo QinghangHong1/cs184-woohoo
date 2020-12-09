@@ -67,6 +67,7 @@ public class WaitRoomFragment extends Fragment {
                 Intent intent=new Intent(getActivity(), QuizActivity.class);
                 // Qinghang 12/08 transfer room id to next activity
                 intent.putExtra("room_id", mViewModel.getCode().getValue());
+
                 startActivity(intent);
             }
         });
