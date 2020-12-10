@@ -105,22 +105,22 @@ public class SettingFragment extends Fragment {
                         if(snapshot.hasChild(""+ProblemSetName.getText().toString())){
                             int time = Integer.parseInt(timePerQuestion.getText().toString());
                             settingViewModel.setTimePerQuestion(time);
-                            Log.e("time",
-                                    "in data change, time is: "+settingViewModel.getmGame().getValue().getTimePerQuestion());
-                            Log.e("time",
-                                    "in data change, room id is :"+settingViewModel.getmGame().getValue().getRoomId());
                             settingViewModel.setProbSetName(ProblemSetName.getText().toString());
-                            settingViewModel.initialize();
 
-                            // get problem set from the firebase
-//                            ProblemSet problemSet = snapshot.getValue(ProblemSet.class);
-//                            Log.e("log", "problem set name is: "+problemSet.getName());
-//                            for(int i = 0; i < problemSet.getNumProblems(); i++){
-//                                Log.e("log",
-//                                        "problem index is: "+i+" problem name is: "+problemSet.getProblems().get(i));
-//                            }
-                            NavHostFragment.findNavController(SettingFragment.this)
-                                    .navigate(R.id.action_setting_to_waitRoomFragment);
+                            // check if the user has already log in before create room
+                            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            if(currentUser == null){
+                                Toast.makeText(getContext(), "You need to log in before create a " +
+                                                "room",
+                                        Toast.LENGTH_LONG).show();
+                            }else{
+                                settingViewModel.initialize();
+
+                                NavHostFragment.findNavController(SettingFragment.this)
+                                        .navigate(R.id.action_setting_to_waitRoomFragment);
+                            }
+
                         }else{
                             Toast.makeText(getContext(), "The problem set is not exist, please enter correct problem set name or upload your problem set!",
                                     Toast.LENGTH_LONG).show();

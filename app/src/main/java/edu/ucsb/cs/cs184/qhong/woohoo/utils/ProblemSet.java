@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 public class ProblemSet {
     private ArrayList<Problem> problems;
-
     private String name;
+    private int numProblems;
 
-    public ProblemSet() {
-        problems = new ArrayList<Problem>();
+    public ProblemSet() { problems = new ArrayList<Problem>(); numProblems = 0;}
+
+    public ProblemSet(ArrayList<Problem> problems) {
+        this.problems = problems;
+        this.numProblems = problems.size();
     }
 
     public String getName() {
@@ -19,19 +22,20 @@ public class ProblemSet {
         this.name = name;
     }
 
-    public ProblemSet(ArrayList<Problem> problems) {
-        this.problems = problems;
-//        this.numProblems = problems.size();
-    }
     public void addProblem(Problem p){
         problems.add(p);
     }
-    public ArrayList<Problem> getProblems() {
-        return problems;
-    }
+
+    public void setProblems(ArrayList<Problem> problems) { this.problems = problems; }
+
+    public ArrayList<Problem> getProblems() { return problems; }
 
     public int getNumProblems() {
-        return problems.size();
+        return numProblems;
+    }
+
+    public void setNumProblems(Integer numOfProbs) {
+        this.numProblems = numOfProbs;
     }
 
     @Override

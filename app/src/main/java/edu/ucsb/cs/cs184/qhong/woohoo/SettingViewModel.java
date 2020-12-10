@@ -81,11 +81,13 @@ public class SettingViewModel extends ViewModel {
         DatabaseReference timePerQuestion = curRoom.child("TimePerQuestion");
         timePerQuestion.setValue(mGame.getValue().getTimePerQuestion());
 
+        // get the user id and create player list
         DatabaseReference player = curRoom.child("players");
         ArrayList<Player> players = new ArrayList<>();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String uid = currentUser.getUid();
+
         // QH add host
         curRoom.child("host_uid").setValue(uid);
         players.add(new Player(uid, 0));

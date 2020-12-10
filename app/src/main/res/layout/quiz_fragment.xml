@@ -10,7 +10,7 @@
         android:id="@+id/questionIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No.1"
+        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/questions"
         app:layout_constraintEnd_toStartOf="@+id/timeInQuiz"
         app:layout_constraintHorizontal_bias="0.34"
@@ -19,45 +19,45 @@
         app:layout_constraintVertical_bias="0.49" />
 
     <Button
-        android:id="@+id/buttonD"
+        android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="D"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonC" />
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <Button
-        android:id="@+id/buttonC"
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="C"
-        app:layout_constraintBottom_toTopOf="@+id/buttonD"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonB" />
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <Button
-        android:id="@+id/buttonB"
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="B"
-        app:layout_constraintBottom_toTopOf="@+id/buttonC"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonA" />
+        app:layout_constraintTop_toBottomOf="@+id/button1" />
 
     <TextView
-        android:id="@+id/questions"
+        android:id="@+id/questions1"
         android:layout_width="354dp"
         android:layout_height="150dp"
-        android:text="Question"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
         android:id="@+id/timeInQuiz"
         android:layout_width="144dp"
         android:layout_height="46dp"
-        android:text="Time Limit(Number)"
+        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/questions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
@@ -76,16 +76,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonA"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="A"
-        app:layout_constraintBottom_toTopOf="@+id/buttonB"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questions"
+        app:layout_constraintTop_toBottomOf="@+id/questions1"
         app:layout_constraintVertical_bias="0.100000024"
         app:layout_constraintVertical_chainStyle="spread" />
 </androidx.constraintlayout.widget.ConstraintLayout>
