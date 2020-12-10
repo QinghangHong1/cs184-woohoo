@@ -89,7 +89,6 @@ public class SettingViewModel extends ViewModel {
         // QH add host
         curRoom.child("host_uid").setValue(uid);
         players.add(new Player(uid, 0));
-        Log.d("players", players.toString());
         player.setValue(players);
 
         // add current quiz index(int)
