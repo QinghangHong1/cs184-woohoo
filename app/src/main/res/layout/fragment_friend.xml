@@ -4,16 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.gallery.GalleryFragment"
+    tools:context=".ui.friend.FriendFragment"
     android:orientation="vertical">
 
-    <Button
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:id="@+id/addFriend"
+
+    <LinearLayout
+        android:id="@+id/userSearchBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Friend"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <SearchView
+            android:id="@+id/userSearchText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:queryHint="Enter User ID" />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/searchUser"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search User"
         android:textSize="20dp"/>
 
     <ExpandableListView

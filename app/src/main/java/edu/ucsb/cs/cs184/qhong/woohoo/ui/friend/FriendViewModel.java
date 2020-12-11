@@ -1,16 +1,16 @@
-package edu.ucsb.cs.cs184.qhong.woohoo.ui.gallery;
+package edu.ucsb.cs.cs184.qhong.woohoo.ui.friend;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class FriendViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public FriendViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        mText.setValue("This is friend fragment");
     }
 
     public LiveData<String> getText() {
