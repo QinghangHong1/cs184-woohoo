@@ -1,6 +1,8 @@
 package edu.ucsb.cs.cs184.qhong.woohoo.ui.friend;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,12 +85,6 @@ public class FriendFragment extends Fragment {
                         searchBar.setVisibility(View.GONE);
                         findUser.setVisibility(View.GONE);
                         addButton.setVisibility(View.VISIBLE);
-                        return false;
-                    }
-                });
-                expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                    @Override
-                    public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
                         return false;
                     }
                 });
@@ -183,8 +179,28 @@ public class FriendFragment extends Fragment {
     public void initListener(){
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                Toast.makeText(getContext(), "老子没写呢！！", Toast.LENGTH_SHORT).show();
+            public boolean onChildClick(ExpandableListView expandableListView, View view, final int ii, final int i1, long l) {
+                Log.e("Tag",""+groups.size());
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                        .setTitle("")
+                        .setMessage("Do you want to delete this user?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String uid = groups.get(ii).getFriends().get(i1).getUid();
+                                groups.get(ii).getFriends().remove(i1);
+                                mViewModel.deleteFriend(uid);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .create();
+                alertDialog.show();
+
                 return false;
             }
         });

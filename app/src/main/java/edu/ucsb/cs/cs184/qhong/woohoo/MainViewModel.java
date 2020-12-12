@@ -94,6 +94,11 @@ public class MainViewModel extends ViewModel {
         });
     }
 
+    public void deleteFriend(String UID){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+       FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid())
+               .child("friend").child(UID).removeValue();
+    }
     public void initFriendList(){
         ArrayList<FriendGroup> groups = new ArrayList<>();
         FriendGroup temp = new FriendGroup();
