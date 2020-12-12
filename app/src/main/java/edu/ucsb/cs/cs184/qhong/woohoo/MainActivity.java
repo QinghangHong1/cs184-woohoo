@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -28,7 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import edu.ucsb.cs.cs184.qhong.woohoo.ui.gallery.GalleryViewModel;
+import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,25 +79,25 @@ public class MainActivity extends AppCompatActivity {
 //        Log.e("Tag", (String) t.getText());
         //add firebase for testing
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("WooHoo!");
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("TAG", "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("TAG", "Failed to read value.", error.toException());
-            }
-        });
+//        DatabaseReference myRef = database.getReference("message");
+//
+//        myRef.setValue("WooHoo!");
+//        // Read from the database
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                String value = dataSnapshot.getValue(String.class);
+//                Log.d("TAG", "Value is: " + value);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w("TAG", "Failed to read value.", error.toException());
+//            }
+//        });
 
 
         //----------------------    Nov,28--  Jiajun Li     ------------------------
@@ -123,11 +123,29 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setAuthorizedUser(){
         NavigationView navigationView = findViewById(R.id.nav_view);
-        TextView nickname = navigationView.getHeaderView(0).findViewById(R.id.nickname);
+        final TextView nickname = navigationView.getHeaderView(0).findViewById(R.id.nickname);
         Button gotoLogin = navigationView.getHeaderView(0).findViewById(R.id.gotoLogin);
         TextView email = navigationView.getHeaderView(0).findViewById(R.id.textView);
         Button signout = navigationView.getHeaderView(0).findViewById(R.id.signOut);
-        nickname.setText("Android Studio");
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference t = myRef.child(currentUser.getUid()).child("name");
+        t.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                nickname.setText(snapshot.getValue().toString());
+                mainViewModel.setmNickname(snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         signout.setVisibility(View.VISIBLE);
         email.setText(mainViewModel.getmEmail().getValue());
         email.setVisibility(View.VISIBLE);
