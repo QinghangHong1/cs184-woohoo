@@ -1,5 +1,6 @@
 package edu.ucsb.cs.cs184.qhong.woohoo;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainViewModel mainViewModel;
 
+    private ProgressDialog mDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,25 +81,6 @@ public class MainActivity extends AppCompatActivity {
 //        Log.e("Tag", (String) t.getText());
         //add firebase for testing
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//
-//        myRef.setValue("WooHoo!");
-//        // Read from the database
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                String value = dataSnapshot.getValue(String.class);
-//                Log.d("TAG", "Value is: " + value);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w("TAG", "Failed to read value.", error.toException());
-//            }
-//        });
 
 
         //----------------------    Nov,28--  Jiajun Li     ------------------------
@@ -166,6 +149,25 @@ public class MainActivity extends AppCompatActivity {
         if(mainViewModel.isSignedIn()){
 //            Log.e("Tag","Signed in");
             setAuthorizedUser();
+            mDialog = ProgressDialog.show(MainActivity.this,"Load user data","Loading...",true);
+
+            final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            mainViewModel.updateFriendsList(currentUser);
+            new Thread(){
+                public void run(){
+                    try{
+                        mainViewModel.fetchCurUsers(currentUser.getUid());
+                        while(mainViewModel.fetched){
+                            sleep(1000);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally{
+                        mDialog.dismiss();
+                        Log.e("Tag","finish loading");
+                    }
+                }
+            }.start();
         }else{
 //            Log.e("Tag","Not Signed in");
             setUnauthorizedUser();
