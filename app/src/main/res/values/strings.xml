@@ -21,4 +21,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_find">FindActivity</string>
     <string name="title_activity_quiz">QuizActivity</string>
+
+    <drawable name="clr_normal">#ff6501</drawable>
+    <drawable name="clr_pressed">#a44100</drawable>
 </resources>

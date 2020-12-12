@@ -2,6 +2,7 @@ package edu.ucsb.cs.cs184.qhong.woohoo.ui.quiz;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,8 +32,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
+import edu.ucsb.cs.cs184.qhong.woohoo.MainActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.QuizActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
+import edu.ucsb.cs.cs184.qhong.woohoo.SettingActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.SettingViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.ui.setting.SettingFragment;
 import edu.ucsb.cs.cs184.qhong.woohoo.utils.Game;
@@ -102,8 +105,10 @@ public class QuizFragment extends Fragment {
                     timeView = getActivity().findViewById(R.id.timeInQuiz);
                     int time = game.getTimePerQuestion();
                     CountDownTimer countDownTimer = new CountDownTimer(time * 1000, 1 * 1000) {
+
                         @Override
                         public void onTick(long millisUntilFinished) {
+                            changeAnswerIndex(mViewModel);
                             timeView.setText(millisUntilFinished / 1000 + "s");
                         }
 
@@ -129,6 +134,45 @@ public class QuizFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+
+    public void changeAnswerIndex(final QuizViewModel mViewModel){
+        Button button1 = getActivity().findViewById(R.id.button1);
+        Button button2 = getActivity().findViewById(R.id.button2);
+        Button button3 = getActivity().findViewById(R.id.button3);
+        Button button4 = getActivity().findViewById(R.id.button4);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.getmGame().getValue().setCurrChooseAnswIndex(0);
+                Log.e("answer", "current answer index change to 0 !");
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.getmGame().getValue().setCurrChooseAnswIndex(1);
+                Log.e("answer", "current answer index change to 1 !");
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.getmGame().getValue().setCurrChooseAnswIndex(2);
+                Log.e("answer", "current answer index change to 2 !");
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.getmGame().getValue().setCurrChooseAnswIndex(3);
+                Log.e("answer", "current answer index change to 3 !");
             }
         });
     }

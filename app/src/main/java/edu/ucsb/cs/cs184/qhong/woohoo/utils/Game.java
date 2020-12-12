@@ -12,6 +12,8 @@ public class Game{
     private int timePerQuestion;
     private String ProblemSetName;
     private int currentProblemIndex;
+    private int currChooseAnswIndex;
+    private int score;
 
     public String getHost_uid() {
         return host_uid;
@@ -27,6 +29,7 @@ public class Game{
         this.players = new ArrayList<Player>();
         this.timePerQuestion = 0;
         this.currentProblemIndex = 1;
+        this.score = 0;
         generateGameID();
     }
 
@@ -35,6 +38,7 @@ public class Game{
         this.players = new ArrayList<Player>();
         this.timePerQuestion = 0;
         this.currentProblemIndex = 1;
+        this.score = 0;
         generateGameID();
     }
     public Game(int roomId){
@@ -42,6 +46,7 @@ public class Game{
         this.timePerQuestion = 0;
         this.roomId = roomId;
         this.currentProblemIndex = 1;
+        this.score = 0;
     }
 
     public void addPlayer(Player player){
@@ -107,6 +112,16 @@ public class Game{
     public void setProblemSet(ProblemSet problemSet) {
         this.problemSet = problemSet;
     }
+
+    public void setCurrChooseAnswIndex(int currChooseAnswIndex) { this.currChooseAnswIndex = currChooseAnswIndex; }
+
+    public int getCurrChooseAnswIndex() { return currChooseAnswIndex; }
+
+    public void updateCurrChooseAnswIndex() { currChooseAnswIndex = -1; }
+
+    public void addScore() { this.score++; }
+
+    public int getScore() { return score; }
 
     @Override
     public String toString() {
