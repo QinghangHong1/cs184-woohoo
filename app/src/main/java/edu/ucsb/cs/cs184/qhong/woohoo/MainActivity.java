@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,6 +27,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -118,11 +123,29 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setAuthorizedUser(){
         NavigationView navigationView = findViewById(R.id.nav_view);
-        TextView nickname = navigationView.getHeaderView(0).findViewById(R.id.nickname);
+        final TextView nickname = navigationView.getHeaderView(0).findViewById(R.id.nickname);
         Button gotoLogin = navigationView.getHeaderView(0).findViewById(R.id.gotoLogin);
         TextView email = navigationView.getHeaderView(0).findViewById(R.id.textView);
         Button signout = navigationView.getHeaderView(0).findViewById(R.id.signOut);
-        nickname.setText("Android Studio");
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference t = myRef.child(currentUser.getUid()).child("name");
+        t.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                nickname.setText(snapshot.getValue().toString());
+                mainViewModel.setmNickname(snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         signout.setVisibility(View.VISIBLE);
         email.setText(mainViewModel.getmEmail().getValue());
         email.setVisibility(View.VISIBLE);
