@@ -52,6 +52,7 @@ public class SettlementFragment extends Fragment {
         return inflater.inflate(R.layout.settlement_fragment, container, false);
     }
     String uid;
+    FirebaseDatabase firebaseDatabase;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -61,7 +62,7 @@ public class SettlementFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         uid = currentUser.getUid();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference playersRef = firebaseDatabase.getReference("CurrentRoom").child("Room" + quizViewModel.getCode().getValue()).child("players");
         playersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -120,24 +121,61 @@ public class SettlementFragment extends Fragment {
 
         Collections.sort(players);
         if (players.size() > 0){
-            Player firstPlayer = players.get(0);
-            TextView textView = (TextView)getActivity().findViewById(R.id.FirstPlayer);
-            String displayText = String.format("No.1 %s %d", firstPlayer.getUid(), firstPlayer.getScore());
-            textView.setText(displayText);
+            final Player firstPlayer = players.get(0);
+            final TextView textView = (TextView)getActivity().findViewById(R.id.FirstPlayer);
+            DatabaseReference  playerRef = firebaseDatabase.getReference("Users").child(firstPlayer.getUid());
+            playerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String nickname = snapshot.child("name").getValue(String.class);
+                    String displayText = String.format("No.1:      %s         %d", nickname, firstPlayer.getScore());
+                    textView.setText(displayText);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
         if (players.size() > 1){
-            Player secondPlayer = players.get(1);
-            TextView textView = (TextView)getActivity().findViewById(R.id.SecondPlayer);
-            String displayText = String.format("No.2 %s %d", secondPlayer.getUid(), secondPlayer.getScore());
-            textView.setText(displayText);
+            final Player secondPlayer = players.get(1);
+            final TextView textView = (TextView)getActivity().findViewById(R.id.SecondPlayer);
+            DatabaseReference  playerRef = firebaseDatabase.getReference("Users").child(secondPlayer.getUid());
+            playerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String nickname = snapshot.child("name").getValue(String.class);
+                    String displayText = String.format("No.2:      %s         %d", nickname, secondPlayer.getScore());
+                    textView.setText(displayText);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }else {
             getActivity().findViewById(R.id.SecondPlayer).setVisibility(View.INVISIBLE);
         }
         if (players.size() > 2){
-            Player thirdPlayer = players.get(2);
-            TextView textView = (TextView)getActivity().findViewById(R.id.SecondPlayer);
-            String displayText = String.format("No.3 %s %d", thirdPlayer.getUid(), thirdPlayer.getScore());
-            textView.setText(displayText);
+            final Player thirdPlayer = players.get(2);
+            final TextView textView = (TextView)getActivity().findViewById(R.id.ThirdPlayer);
+            DatabaseReference  playerRef = firebaseDatabase.getReference("Users").child(thirdPlayer.getUid());
+            playerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String nickname = snapshot.child("name").getValue(String.class);
+                    String displayText = String.format("No.3:      %s         %d", nickname, thirdPlayer.getScore());
+                    textView.setText(displayText);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }else {
             getActivity().findViewById(R.id.ThirdPlayer).setVisibility(View.INVISIBLE);
         }
