@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
+import edu.ucsb.cs.cs184.qhong.woohoo.LoginActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.utils.FriendGroup;
 import edu.ucsb.cs.cs184.qhong.woohoo.utils.MyAdapter;
@@ -62,15 +70,51 @@ public class FriendFragment extends Fragment {
                     @Override
                     public boolean onClose() {
                         LinearLayout searchBar = root.findViewById(R.id.userSearchBar);
+                        LinearLayout findUser = root.findViewById(R.id.findUser);
                         searchBar.setVisibility(View.GONE);
+                        findUser.setVisibility(View.GONE);
                         addButton.setVisibility(View.VISIBLE);
                         return false;
                     }
                 });
                 userSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
-                    public boolean onQueryTextSubmit(String s) {
-                        Toast.makeText(getContext(), "老子没写呢！！", Toast.LENGTH_SHORT).show();
+                    public boolean onQueryTextSubmit(final String s) {
+
+                        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users");
+                        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean t = true;
+                                for (DataSnapshot sshot : snapshot.getChildren()) {
+                                    String temp = sshot.child("name").getValue(String.class);
+                                    if (temp.equals(s)) {
+                                        LinearLayout findUser = root.findViewById(R.id.findUser);
+                                        TextView findUserName = root.findViewById(R.id.findUserName);
+                                        TextView findUserEmail = root.findViewById(R.id.findUserEmail);
+                                        findUserName.setText(s);
+                                        findUserEmail.setText(sshot.child("email").getValue(String.class));
+                                        findUser.setVisibility(View.VISIBLE);
+                                        Toast.makeText(getContext(), "Find User: " + sshot.getKey(),
+                                                Toast.LENGTH_LONG).show();
+                                        t = false;
+                                        break;
+                                    }
+                                }
+                                if (t) {
+                                    Toast.makeText(getContext(), "User not found!",
+                                            Toast.LENGTH_LONG).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
                         return false;
                     }
 
