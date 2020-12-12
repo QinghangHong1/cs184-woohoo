@@ -70,11 +70,8 @@ public class SettlementFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {};
                 ArrayList<Player> players = (ArrayList<Player>)snapshot.getValue(t);
-
                 displayRanking(players);
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -92,14 +89,11 @@ public class SettlementFragment extends Fragment {
                     isHost[0] = false;
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
         FloatingActionButton fab = getActivity().findViewById(R.id.buttonBackToHome);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +113,7 @@ public class SettlementFragment extends Fragment {
     private void displayRanking(ArrayList<Player> players){
         int totalQuestion = 0;
 
-        Collections.sort(players);
+        Collections.sort(players, Collections.<Player>reverseOrder());;
         if (players.size() > 0){
             final Player firstPlayer = players.get(0);
             final TextView textView = (TextView)getActivity().findViewById(R.id.FirstPlayer);
