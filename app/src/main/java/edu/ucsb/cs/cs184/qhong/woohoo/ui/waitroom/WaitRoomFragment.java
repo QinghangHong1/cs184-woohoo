@@ -17,8 +17,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.MainActivity;
@@ -26,6 +32,7 @@ import edu.ucsb.cs.cs184.qhong.woohoo.QuizActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.SettingActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.SettingViewModel;
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.Player;
 
 //YZ2nd: wait room for teachers
 public class WaitRoomFragment extends Fragment {
@@ -51,6 +58,24 @@ public class WaitRoomFragment extends Fragment {
         textCode.setText("Room ID:"+mViewModel.getCode().getValue());
         TextView textName = getActivity().findViewById(R.id.textName);
         textName.setText("Problem Set Name:"+mViewModel.getProbSetName().getValue());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("CurrentRoom");
+        DatabaseReference playerReference = databaseReference.child("Room" + mViewModel.getCode().getValue());
+        playerReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild("players")){
+                    GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {};
+                    ArrayList<Player> players = (ArrayList<Player>)snapshot.child("players").getValue(t);
+                    TextView numPlayerText = (TextView) getActivity().findViewById(R.id.numberOfPlayersText1);
+                    numPlayerText.setText(players.size() + "players in the room ");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         Button fab = getActivity().findViewById(R.id.button_start);
         fab.setOnClickListener(new View.OnClickListener() {

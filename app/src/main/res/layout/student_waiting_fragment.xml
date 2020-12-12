@@ -47,7 +47,18 @@
         app:layout_constraintTop_toBottomOf="@+id/textName"
         app:layout_constraintVertical_bias="0.232" />
 
-<!--    <Button-->
+    <TextView
+        android:id="@+id/numberOfPlayersText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65" />
+
+    <!--    <Button-->
 <!--        android:id="@+id/button_start"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
