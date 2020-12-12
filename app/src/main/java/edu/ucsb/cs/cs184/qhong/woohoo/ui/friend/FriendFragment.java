@@ -41,33 +41,27 @@ public class FriendFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         friendViewModel =
                 ViewModelProviders.of(this).get(FriendViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_friend, container, false);
-        return root;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        expandableListView = getActivity().findViewById(R.id.expandableView);
+        final View root = inflater.inflate(R.layout.fragment_friend, container, false);
+        expandableListView = root.findViewById(R.id.expandableView);
         initList();
         initListener();
         mAdapter = new MyAdapter(groups,getContext());
         expandableListView.setAdapter(mAdapter);
 
-        final Button addButton = getActivity().findViewById(R.id.searchUser);
+        final Button addButton = root.findViewById(R.id.searchUser);
         addButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                LinearLayout searchBar = getActivity().findViewById(R.id.userSearchBar);
+                LinearLayout searchBar = root.findViewById(R.id.userSearchBar);
                 searchBar.setVisibility(View.VISIBLE);
                 addButton.setVisibility(View.GONE);
-                SearchView userSearch = getActivity().findViewById(R.id.userSearchText);
+                SearchView userSearch = root.findViewById(R.id.userSearchText);
                 userSearch.setIconified(false);
                 userSearch.setSubmitButtonEnabled(true);
                 userSearch.setOnCloseListener(new SearchView.OnCloseListener() {
                     @Override
                     public boolean onClose() {
-                        LinearLayout searchBar = getActivity().findViewById(R.id.userSearchBar);
+                        LinearLayout searchBar = root.findViewById(R.id.userSearchBar);
                         searchBar.setVisibility(View.GONE);
                         addButton.setVisibility(View.VISIBLE);
                         return false;
@@ -86,8 +80,8 @@ public class FriendFragment extends Fragment {
                     }
                 });
             }});
+        return root;
     }
-
     public void initList(){
         for(int i = 0;i < groupNames.length;i++){
             FriendGroup temp = new FriendGroup();
