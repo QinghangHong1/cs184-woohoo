@@ -2,6 +2,7 @@ package edu.ucsb.cs.cs184.qhong.woohoo;
 
 import android.renderscript.Sampler;
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -27,6 +28,7 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<String> mNickname;
     private MutableLiveData<ArrayList<FriendGroup>> mFriends;
     private FirebaseAuth mAuth;
+    private MutableLiveData<ArrayList<User>> friendsPendingList;
 
     public boolean fetched = true;
 
@@ -40,6 +42,7 @@ public class MainViewModel extends ViewModel {
         user = new MutableLiveData<>();
         mAuth = FirebaseAuth.getInstance();
         mFriends = new MutableLiveData<>();
+        friendsPendingList = new MutableLiveData<>();
         initFriendList();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
@@ -96,8 +99,9 @@ public class MainViewModel extends ViewModel {
 
     public void deleteFriend(String UID){
         FirebaseUser currentUser = mAuth.getCurrentUser();
-       FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid())
-               .child("friend").child(UID).removeValue();
+       DatabaseReference tt = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid())
+               .child("friend").child(UID);
+       tt.removeValue();
     }
     public void initFriendList(){
         ArrayList<FriendGroup> groups = new ArrayList<>();
@@ -139,6 +143,19 @@ public class MainViewModel extends ViewModel {
 
                     }
                 });
+    }
+
+    public MutableLiveData<User> getUser() {
+        return user;
+    }
+
+    public MutableLiveData<ArrayList<User>> getFriendsPendingList() {
+        return friendsPendingList;
+    }
+
+    public void setFriendsPendingList(ArrayList<User> list) {
+        friendsPendingList.setValue(list);
+        Log.e("tag",""+list.size());
     }
 
     public MutableLiveData<ArrayList<FriendGroup>> getmFriends() {

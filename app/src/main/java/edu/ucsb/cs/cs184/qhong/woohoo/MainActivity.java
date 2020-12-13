@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,7 +28,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.ArrayList;
+
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton button = findViewById(R.id.fab);
+//        FloatingActionButton button = findViewById(R.id.fab);
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_friend, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -120,6 +121,28 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 nickname.setText(snapshot.getValue().toString());
                 mainViewModel.setmNickname(snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        DatabaseReference pendingList = myRef.child(currentUser.getUid()).child("pending friends");
+        pendingList.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<User> temp = new ArrayList<>();
+                for(DataSnapshot shot:snapshot.getChildren()){
+                    User curUser = new User();
+                    curUser.setIcon(shot.child("icon").getValue().toString());
+                    curUser.setEmail(shot.child("email").getValue().toString());
+                    curUser.setName(shot.child("name").getValue().toString());
+                    curUser.setUid(shot.getKey());
+                    temp.add(curUser);
+                }
+                mainViewModel.setFriendsPendingList(temp);
+                Log.e("Tag","Finished loading Pending Friend List" + temp.size());
             }
 
             @Override
