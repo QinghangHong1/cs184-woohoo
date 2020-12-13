@@ -7,6 +7,13 @@
     tools:context=".ui.friend.FriendFragment"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/friendRequests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Friend Requests"
+        android:textSize="20dp"/>
 
     <LinearLayout
         android:id="@+id/userSearchBar"
@@ -76,6 +83,6 @@
     <ExpandableListView
         android:id="@+id/expandableView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
