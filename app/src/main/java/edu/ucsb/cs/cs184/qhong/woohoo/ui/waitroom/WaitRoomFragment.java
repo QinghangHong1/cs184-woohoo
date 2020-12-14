@@ -67,7 +67,7 @@ public class WaitRoomFragment extends Fragment {
                     GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {};
                     ArrayList<Player> players = (ArrayList<Player>)snapshot.child("players").getValue(t);
                     TextView numPlayerText = (TextView) getActivity().findViewById(R.id.numberOfPlayersText1);
-                    numPlayerText.setText(players.size() + "players in the room ");
+                    numPlayerText.setText(players.size() + " players in the room ");
                 }
             }
 

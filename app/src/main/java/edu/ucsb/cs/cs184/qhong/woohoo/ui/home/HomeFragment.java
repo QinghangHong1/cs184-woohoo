@@ -14,9 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import java.util.ArrayList;
+
 import edu.ucsb.cs.cs184.qhong.woohoo.FindActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.SettingActivity;
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.Player;
 
 //YZ2nd:HomeFragment
 //GOOD Quiz, create Room button, find room button.
@@ -53,6 +56,7 @@ public class HomeFragment extends Fragment {
         });
         createRoom.setOnClickListener(new LocationCheckedListener());  //这一行是在将button和监听器捆绑
         findRoom.setOnClickListener(new LocationCheckedListener2());  //这一行是在将button和监听器捆绑
+        ArrayList<Player> test = new ArrayList<>();
 
 
         return root;
