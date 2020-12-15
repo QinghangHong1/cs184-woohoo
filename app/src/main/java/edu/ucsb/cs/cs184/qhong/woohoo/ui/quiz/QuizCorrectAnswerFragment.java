@@ -90,47 +90,57 @@ public class QuizCorrectAnswerFragment extends Fragment {
                 // check if all questions are displayed
                 // wrong check index function, need to change in Game.java
                 // update the totoal score for the user in the database 12.12
-                if(!game.checkIndex()){
-                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                    final FirebaseUser currentUser = mAuth.getCurrentUser();
-                    final String uid = currentUser.getUid();
-                    final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference playersRef =
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                final FirebaseUser currentUser = mAuth.getCurrentUser();
+                final String uid = currentUser.getUid();
+                final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference playersRef =
                             firebaseDatabase.getReference("CurrentRoom").child("Room" + mViewModel.getCode().getValue()).child("players");
 
-                    playersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {};
-                            ArrayList<Player> players = (ArrayList<Player>)snapshot.getValue(t);
+                playersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        // find the local player and set the player score in the firebase
+                        GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {};
+                        ArrayList<Player> players = (ArrayList<Player>)snapshot.getValue(t);
 
-                            int userIndex = -1;
-                            for (int i = 0; i < players.size(); i++){
-                                Player temp = players.get(i);
-                                if (temp.getUid().equals(uid)){
-                                    userIndex = i;
-                                    break;
-                                }
+                        int userIndex = -1;
+                        for (int i = 0; i < players.size(); i++){
+                            Player temp = players.get(i);
+                            if (temp.getUid().equals(uid)){
+                                userIndex = i;
+                                break;
                             }
-                            int score = game.getScore();
-                            firebaseDatabase.getReference("CurrentRoom").child("Room" + mViewModel.getCode().getValue()).child("players").child(String.valueOf(userIndex)).child("score").setValue(score);
                         }
+                        int score = game.getScore();
+                        firebaseDatabase.getReference("CurrentRoom").child("Room" + mViewModel.getCode().getValue()).child("players").child(String.valueOf(userIndex)).child("score").setValue(score);
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
+                        if(!game.checkIndex()){
+                            NavHostFragment.findNavController(QuizCorrectAnswerFragment.this)
+                                    .navigate(R.id.action_quizCorrectAnswerFragment_to_settlementFragment);
+                        }else{
+                            Log.e("tag", "I have been there");
+                            // translate to correct answer page
+                            NavHostFragment.findNavController(QuizCorrectAnswerFragment.this)
+                                    .navigate(R.id.action_quizCorrectAnswerFragment_to_quizFragment);
                         }
-                    });
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                    NavHostFragment.findNavController(QuizCorrectAnswerFragment.this)
-                            .navigate(R.id.action_quizCorrectAnswerFragment_to_settlementFragment);
-                    return;
-                }
+                    }
+                });
 
-                // translate to correct answer page
-                NavHostFragment.findNavController(QuizCorrectAnswerFragment.this)
-                        .navigate(R.id.action_quizCorrectAnswerFragment_to_quizFragment);
+//                if(!game.checkIndex()){
+//                    NavHostFragment.findNavController(QuizCorrectAnswerFragment.this)
+//                            .navigate(R.id.action_quizCorrectAnswerFragment_to_settlementFragment);
+//                }else{
+//                    Log.e("tag", "I have been there");
+//                    // translate to correct answer page
+//                    NavHostFragment.findNavController(QuizCorrectAnswerFragment.this)
+//                            .navigate(R.id.action_quizCorrectAnswerFragment_to_quizFragment);
+//                }
             }
 
         };

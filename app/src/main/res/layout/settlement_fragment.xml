@@ -4,25 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.settlement.SettlementFragment">
+    tools:context=".ui.settlement.SettlementFragment"
+    android:background="#3D59AB">
 
     <TextView
         android:id="@+id/SecondPlayer"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text=""
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/FirstPlayer"
-        app:layout_constraintVertical_bias="0.114" />
+        app:layout_constraintVertical_bias="0.114"
+        android:textColor="@color/colorMyOrange"/>
 
     <TextView
         android:id="@+id/ThirdPlayer"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text=""
+        android:textSize="25sp"
+        android:textColor="#F0FFFF"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/UserName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +42,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:textSize="25sp"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
+        android:textColor="@color/colorMyWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text=""
+        android:textSize="25sp"
+        android:textColor="@color/colorMyRed"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -69,10 +85,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settlement"
+        android:textSize="25sp"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06999999" />
+        app:layout_constraintVertical_bias="0.06999999"
+        android:textColor="@color/colorMyWhite"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

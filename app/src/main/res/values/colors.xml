@@ -3,4 +3,16 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorMyPurple">#908CDB</color> 
+    <color name="colorMyDarkPurple">#3753BF</color> 
+    <color name="colorMyBlue">#007FFF</color> 
+    <color name="colorMyDarkOrange">#DE5D1D</color>
+    <color name="colorMyWhite">#FFFFFF</color>
+    <color name="colorMyOrange">#FF9800</color>
+    <color name="colorMyYellow">#FFD700</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorMyGreen">#32CD00</color>
+    <color name="colorMyRed">#FF4500</color>
+    <color name="colorMyGray">#FF4500</color>
 </resources>

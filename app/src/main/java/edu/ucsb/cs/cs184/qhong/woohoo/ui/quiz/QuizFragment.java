@@ -69,7 +69,7 @@ public class QuizFragment extends Fragment {
         quesIndexView = getActivity().findViewById(R.id.questionIndex);
         Game game = mViewModel.getmGame().getValue();
 
-        quesIndexView.setText(game.getCurrentProblemIndex()+"");
+        quesIndexView.setText("No."+game.getCurrentProblemIndex());
 
         final String problemSet_name = mViewModel.getmGame().getValue().getProblemSetName();
         FirebaseDatabase database = FirebaseDatabase.getInstance();

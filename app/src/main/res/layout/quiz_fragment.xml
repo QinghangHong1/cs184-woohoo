@@ -4,88 +4,121 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.quiz.QuizFragment">
+    tools:context=".ui.quiz.QuizFragment"
+    android:background="@color/colorMyDarkPurple">
 
     <TextView
         android:id="@+id/questionIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka_one"
         android:text=""
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/questions1"
         app:layout_constraintEnd_toStartOf="@+id/timeInQuiz"
         app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.49" />
+        app:layout_constraintVertical_bias="0.49"
+        android:textColor="@color/colorMyWhite"/>
 
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka_one"
         android:text=""
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        android:textColor="@color/colorMyBlue"
+        android:background="@color/colorMyWhite"/>
+<!--    android:background="@color/colorMyBlue"-->
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
         android:text=""
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        android:textColor="@color/colorMyRed"
+        android:background="@color/colorMyWhite"/>
+<!--    android:background="@color/colorMyRed"-->
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
         android:text=""
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button1" />
+        app:layout_constraintTop_toBottomOf="@+id/button1"
+        android:textColor="@color/colorMyOrange"
+        android:background="@color/colorMyWhite"/>
+<!--    android:background="@color/colorMyYellow"-->
 
     <TextView
         android:id="@+id/questions1"
-        android:layout_width="354dp"
+        android:layout_width="350dp"
         android:layout_height="150dp"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
         android:text=""
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.17000002" />
+        app:layout_constraintVertical_bias="0.17000002"
+        android:background="@color/colorMyWhite" />
 
     <TextView
         android:id="@+id/timeInQuiz"
         android:layout_width="144dp"
         android:layout_height="46dp"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
         android:text=""
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/questions1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49"
+        android:textColor="@color/colorMyWhite"/>
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
         android:text=""
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questions1"
         app:layout_constraintVertical_bias="0.100000024"
-        app:layout_constraintVertical_chainStyle="spread" />
+        app:layout_constraintVertical_chainStyle="spread"
+        android:textColor="@color/colorMyGreen"
+        android:background="@color/colorMyWhite"/>
+<!--        android:background="@color/colorMyGreen"-->
 </androidx.constraintlayout.widget.ConstraintLayout>
