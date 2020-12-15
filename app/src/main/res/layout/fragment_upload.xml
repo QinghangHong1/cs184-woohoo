@@ -4,25 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.upload.UploadFragment">
+    tools:context=".ui.upload.UploadFragment"
+    android:background="#64B5F6">
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter the name of your problem set"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Name your problem set below:"
+        android:textColor="#FFFFCD"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.050000012" />
+        app:layout_constraintVertical_bias="0.092" />
 
     <EditText
         android:id="@+id/problem_set_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="here"
+        android:hint="enter here"
+        android:textColor="#FFFFCD"
+        android:fontFamily="@font/fredoka_one"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,8 +40,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
+        android:textColor="#8C9EFF"
+        android:background="#FAFA96"
+        android:fontFamily="@font/fredoka_one"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/problem_set_name"
         app:layout_constraintVertical_bias="0.0" />
@@ -59,6 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Question"
+            android:textColor="#FFFFCD"
+            android:fontFamily="@font/fredoka_one"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="A"
+            android:textColor="#FFFFCD"
+            android:fontFamily="@font/fredoka_one"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,17 +92,23 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFCD"
+            android:fontFamily="@font/fredoka_one"
             android:hint="B" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFCD"
+            android:fontFamily="@font/fredoka_one"
             android:hint="C" />
 
         <EditText
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFCD"
+            android:fontFamily="@font/fredoka_one"
             android:hint="D" />
     </LinearLayout>
 
@@ -109,6 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:outlineAmbientShadowColor="@color/lightyellow"
             android:tag="0" />
 
         <RadioButton
@@ -140,18 +161,25 @@
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="invisible"
-
+        android:textColor="#8C9EFF"
+        android:background="#FAFA96"
+        android:fontFamily="@font/fredoka_one"
         app:layout_constraintEnd_toStartOf="@+id/finish"
         app:layout_constraintHorizontal_bias="0.88"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.90999997" />
 
+
+
     <Button
         android:id="@+id/finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finish"
+        android:textColor="#8C9EFF"
+        android:background="#FAFA96"
+        android:fontFamily="@font/fredoka_one"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.65"
@@ -159,6 +187,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.90999997"
         android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/introupload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Upload Your Quiz"
+        android:textColor="#FFFFCD"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
