@@ -5,13 +5,15 @@ import java.util.ArrayList;
 public class ProblemSet {
     private ArrayList<Problem> problems;
     private String name;
-    private int numProblems;
+//    private int numProblems;
 
-    public ProblemSet() { problems = new ArrayList<Problem>(); numProblems = 0;}
+    public ProblemSet() { problems = new ArrayList<Problem>();
+//    numProblems = 0;
+    }
 
     public ProblemSet(ArrayList<Problem> problems) {
         this.problems = problems;
-        this.numProblems = problems.size();
+//        this.numProblems = problems.size();
     }
 
     public String getName() {
@@ -31,12 +33,12 @@ public class ProblemSet {
     public ArrayList<Problem> getProblems() { return problems; }
 
     public int getNumProblems() {
-        return numProblems;
+        return problems.size();
     }
 
-    public void setNumProblems(Integer numOfProbs) {
-        this.numProblems = numOfProbs;
-    }
+//    public void setNumProblems(Integer numOfProbs) {
+//        this.numProblems = numOfProbs;
+//    }
 
     @Override
     public String toString() {
