@@ -116,10 +116,11 @@ public class QuizCorrectAnswerFragment extends Fragment {
                         firebaseDatabase.getReference("CurrentRoom").child("Room" + mViewModel.getCode().getValue()).child("players").child(String.valueOf(userIndex)).child("score").setValue(score);
 
                         if(!game.checkIndex()){
+                            Log.e("tag", "to settlement");
                             NavHostFragment.findNavController(QuizCorrectAnswerFragment.this)
                                     .navigate(R.id.action_quizCorrectAnswerFragment_to_settlementFragment);
                         }else{
-                            Log.e("tag", "I have been there");
+                            Log.e("tag", "to quiz");
                             // translate to correct answer page
                             NavHostFragment.findNavController(QuizCorrectAnswerFragment.this)
                                     .navigate(R.id.action_quizCorrectAnswerFragment_to_quizFragment);
