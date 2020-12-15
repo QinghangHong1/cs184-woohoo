@@ -2,6 +2,7 @@ package edu.ucsb.cs.cs184.qhong.woohoo.ui.setting;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
+import edu.ucsb.cs.cs184.qhong.woohoo.MainActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.SettingViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.ui.findroom.FindFragment;
@@ -64,8 +67,6 @@ public class SettingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-//
 //        settingViewModel = ViewModelProviders.of(this).get(SettingViewModel.class);
 //        final TextView timePerQuestion = getActivity().findViewById(R.id.inputTimePerQues);
 //
@@ -102,7 +103,7 @@ public class SettingFragment extends Fragment {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.hasChild(""+ProblemSetName.getText().toString())){
+                        if (snapshot.hasChild("" + ProblemSetName.getText().toString())) {
                             int time = Integer.parseInt(timePerQuestion.getText().toString());
                             settingViewModel.setTimePerQuestion(time);
                             settingViewModel.setProbSetName(ProblemSetName.getText().toString());
@@ -110,22 +111,23 @@ public class SettingFragment extends Fragment {
                             // check if the user has already log in before create room
                             FirebaseAuth mAuth = FirebaseAuth.getInstance();
                             FirebaseUser currentUser = mAuth.getCurrentUser();
-                            if(currentUser == null){
+                            if (currentUser == null) {
                                 Toast.makeText(getContext(), "You need to log in before create a " +
                                                 "room",
                                         Toast.LENGTH_LONG).show();
-                            }else{
+                            } else {
                                 settingViewModel.initialize();
 
                                 NavHostFragment.findNavController(SettingFragment.this)
                                         .navigate(R.id.action_setting_to_waitRoomFragment);
                             }
 
-                        }else{
+                        } else {
                             Toast.makeText(getContext(), "The problem set is not exist, please enter correct problem set name or upload your problem set!",
                                     Toast.LENGTH_LONG).show();
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
@@ -133,7 +135,16 @@ public class SettingFragment extends Fragment {
                 });
             }
         });
-        // TODO: Use the ViewModel
-    }
 
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab1);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
 }

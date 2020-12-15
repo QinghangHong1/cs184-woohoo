@@ -64,6 +64,7 @@ public class StudentWaitingFragment extends Fragment {
         DatabaseReference curRoom = myRef.child("Room"+ mViewModel.getCode().getValue());
 
 //        curRoom.addListenerForSingleValueEvent(new ValueEventListener() {
+        final boolean[] check = {true};
         curRoom.addValueEventListener(new ValueEventListener() {
             final Intent intent=new Intent(getActivity(), QuizActivity.class);
             Bundle data = new Bundle();
@@ -90,7 +91,11 @@ public class StudentWaitingFragment extends Fragment {
                     if(snapshot.hasChild("start")){
                         data.putInt("room_id", mViewModel.getCode().getValue());
                         intent.putExtras(data);
-                        startActivity(intent);
+                        Log.e("tag", "on intent in student waiting fragment");
+                        if(check[0]){
+                            startActivity(intent);
+                            check[0] = false;
+                        }
                     }
 //                    else{
 //                        Toast.makeText(getContext(), "Quiz is going to start!",

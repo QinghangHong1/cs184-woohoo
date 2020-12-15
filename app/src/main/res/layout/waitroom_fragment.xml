@@ -18,8 +18,9 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="1.0"
-    app:srcCompat="@android:drawable/ic_dialog_email"
-    tools:ignore="MissingConstraints" />
+    app:srcCompat="@drawable/ic_arrow_back_ios_24px"
+    tools:ignore="MissingConstraints"
+    android:backgroundTint="@color/colorMyWhite" />
 
 
     <TextView
