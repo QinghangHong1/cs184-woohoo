@@ -5,15 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.friend.FriendFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#BCC3EA">
 
     <Button
         android:id="@+id/friendRequests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/fredoka_one"
         android:text="Friend Requests"
-        android:textSize="20dp"/>
+        android:textSize="20dp" />
 
     <LinearLayout
         android:id="@+id/userSearchBar"
@@ -26,6 +29,9 @@
             android:id="@+id/userSearchText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
+            android:fontFamily="@font/fredoka_one"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:queryHint="Enter User ID" />
@@ -43,7 +49,7 @@
             android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher_round"/>
+            android:src="@drawable/ic_face_24px"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,6 +58,8 @@
                 android:id="@+id/findUserName"
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="20dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/fredoka_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"/>
@@ -59,6 +67,8 @@
                 android:id="@+id/findUserEmail"
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="20dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/fredoka_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"/>
@@ -67,21 +77,26 @@
         <Button
             android:id="@+id/addFindUser"
             android:layout_marginTop="20dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/fredoka_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD"/>
     </LinearLayout>
+
     <Button
         android:id="@+id/searchUser"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="206dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/fredoka_one"
         android:text="Search User"
-        android:textSize="20dp"/>
+        android:textSize="20dp" />
 
     <ExpandableListView
         android:id="@+id/expandableView"
+        android:fontFamily="@font/fredoka_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
