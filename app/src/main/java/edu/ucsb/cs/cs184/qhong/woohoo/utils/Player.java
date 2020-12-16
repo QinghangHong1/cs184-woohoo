@@ -5,6 +5,16 @@ public class Player implements Comparable<Player> {
         return uid;
     }
 
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+
+    private boolean finished;
     public void setUid(String uid) {
         this.uid = uid;
     }
@@ -13,10 +23,10 @@ public class Player implements Comparable<Player> {
     private String uid;
     private int score;
     public Player(){
-
+        finished = false;
     }
     public Player(String uid, int score) {
-
+        this.finished = false;
         this.uid = uid;
         this.score = score;
     }
