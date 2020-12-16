@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -274,10 +276,10 @@ public class QuizFragment extends Fragment {
     }
 
     public void changeAnswerIndex(final QuizViewModel mViewModel){
-        Button button1 = getActivity().findViewById(R.id.button1);
-        Button button2 = getActivity().findViewById(R.id.button2);
-        Button button3 = getActivity().findViewById(R.id.button3);
-        Button button4 = getActivity().findViewById(R.id.button4);
+        final Button button1 = getActivity().findViewById(R.id.button1);
+        final Button button2 = getActivity().findViewById(R.id.button2);
+        final Button button3 = getActivity().findViewById(R.id.button3);
+        final Button button4 = getActivity().findViewById(R.id.button4);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,11 +289,56 @@ public class QuizFragment extends Fragment {
             }
         });
 
+        button1.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        button1.setBackgroundColor(getResources().getColor(R.color.colorMyGray));
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        button1.setBackgroundColor(getResources().getColor(R.color.colorMyWhite));
+                        button1.setTextColor(getResources().getColor(R.color.colorMyRed));
+                        button2.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        button3.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        button4.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        break;
+                }
+                return true;
+            }
+        });
+
+
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewModel.getmGame().getValue().setCurrChooseAnswIndex(1);
                 Log.e("answer", "current answer index change to 1 !");
+            }
+        });
+
+        button2.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        button2.setBackgroundColor(getResources().getColor(R.color.colorMyGray));
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        button2.setBackgroundColor(getResources().getColor(R.color.colorMyWhite));
+                        button2.setTextColor(getResources().getColor(R.color.colorMyRed));
+                        button1.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        button3.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        button4.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        break;
+                }
+                return true;
             }
         });
 
@@ -303,11 +350,55 @@ public class QuizFragment extends Fragment {
             }
         });
 
+        button3.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        button3.setBackgroundColor(getResources().getColor(R.color.colorMyGray));
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        button3.setBackgroundColor(getResources().getColor(R.color.colorMyWhite));
+                        button3.setTextColor(getResources().getColor(R.color.colorMyRed));
+                        button2.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        button1.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        button4.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        break;
+                }
+                return true;
+            }
+        });
+
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewModel.getmGame().getValue().setCurrChooseAnswIndex(3);
                 Log.e("answer", "current answer index change to 3 !");
+            }
+        });
+
+        button4.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        button4.setBackgroundColor(getResources().getColor(R.color.colorMyGray));
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        button4.setBackgroundColor(getResources().getColor(R.color.colorMyWhite));
+                        button4.setTextColor(getResources().getColor(R.color.colorMyRed));
+                        button2.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        button1.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        button3.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        break;
+                }
+                return true;
             }
         });
     }

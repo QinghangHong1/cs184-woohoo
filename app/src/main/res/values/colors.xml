@@ -29,6 +29,7 @@
     <color name="colorTransparent">#00000000</color>
     <color name="colorMyGreen">#32CD00</color>
     <color name="colorMyRed">#FF4500</color>
-    <color name="colorMyGray">#FF4500</color>
+    <color name="colorMyGray">#A9A9A9</color>
+    <color name="colorMyBlack">#000000</color>
 
 </resources>
