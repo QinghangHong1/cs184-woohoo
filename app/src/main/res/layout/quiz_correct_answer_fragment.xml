@@ -4,28 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.quiz.QuizCorrectAnswerFragment">
+    tools:context=".ui.quiz.QuizCorrectAnswerFragment"
+    android:background="#33A1C9">
 
     <TextView
         android:id="@+id/questions2"
-        android:layout_width="354dp"
+        android:layout_width="350dp"
         android:layout_height="150dp"
-        android:text="123"
+        android:text=""
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintVertical_bias="0.23"
+        android:background="@color/colorMyWhite"/>
 
     <TextView
         android:id="@+id/timeInQuiz2"
-        android:layout_width="121dp"
-        android:layout_height="40dp"
-        android:text="123"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/colorMyWhite"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/questions2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.52" />
@@ -34,12 +42,16 @@
         android:id="@+id/correctAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="123"
+        android:text=""
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintVertical_bias="0.53"
+        android:textColor="@color/colorMyWhite"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

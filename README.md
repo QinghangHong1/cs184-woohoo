@@ -1,3 +1,6 @@
+Dec 15:
+    Fix the bug that quiz activity transition may happen multiple times, add color and font in the quiz and settlement fragments --HY
+
 Nov 28: 
     Added Firebase including Realtime Database and email-password Authentication in the Gallery fragment. --JL
     

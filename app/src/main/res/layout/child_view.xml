@@ -9,13 +9,14 @@
         android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@drawable/ic_face_24px"/>
     <TextView
         android:id="@+id/userName"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka_one"
         android:text="Hello World"
         android:textSize="20dp"/>
 
