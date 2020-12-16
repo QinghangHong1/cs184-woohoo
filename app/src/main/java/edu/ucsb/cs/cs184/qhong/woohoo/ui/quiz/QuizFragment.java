@@ -2,6 +2,7 @@ package edu.ucsb.cs.cs184.qhong.woohoo.ui.quiz;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -21,6 +22,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +53,8 @@ public class QuizFragment extends Fragment {
     private TextView quesIndexView;
     private TextView questionView;
     private Button ansButton;
+    private ProgressDialog mDialog;
+    private boolean fetchProbSet = false;
 
     public static QuizFragment newInstance() {
         return new QuizFragment();
@@ -58,6 +63,7 @@ public class QuizFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        Log.e("tag", "on create view");
         return inflater.inflate(R.layout.quiz_fragment, container, false);
     }
 
@@ -69,65 +75,22 @@ public class QuizFragment extends Fragment {
         quesIndexView = getActivity().findViewById(R.id.questionIndex);
         Game game = mViewModel.getmGame().getValue();
 
-        quesIndexView.setText(game.getCurrentProblemIndex()+"");
+        quesIndexView.setText("No."+game.getCurrentProblemIndex());
 
         final String problemSet_name = mViewModel.getmGame().getValue().getProblemSetName();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ProblemSet");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild(problemSet_name)){
+                    Log.e("tag", "in on data change in quiz fragment");
                     ProblemSet problemSet =
                             snapshot.child(problemSet_name).getValue(ProblemSet.class);
                     mViewModel.getmGame().getValue().setProblemSet(problemSet);
 
-                    // put the question and answers into the page
-                    Game game = mViewModel.getmGame().getValue();
-                    Problem problem = game.getProblem(game.getCurrentProblemIndex()-1);
-                    questionView = getActivity().findViewById(R.id.questions1);
-                    questionView.setText(problem.getQuestion());
-
-                    ansButton = getActivity().findViewById(R.id.button1);
-                    ansButton.setText(problem.getAnswer_choices().get(0));
-
-                    ansButton = getActivity().findViewById(R.id.button2);
-                    ansButton.setText(problem.getAnswer_choices().get(1));
-
-                    ansButton = getActivity().findViewById(R.id.button3);
-                    ansButton.setText(problem.getAnswer_choices().get(2));
-
-                    ansButton = getActivity().findViewById(R.id.button4);
-                    ansButton.setText(problem.getAnswer_choices().get(3));
-
-                    // get the timer
-                    timeView = getActivity().findViewById(R.id.timeInQuiz);
-                    int time = game.getTimePerQuestion();
-                    CountDownTimer countDownTimer = new CountDownTimer(time * 1000, 1 * 1000) {
-
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            changeAnswerIndex(mViewModel);
-                            timeView.setText(millisUntilFinished / 1000 + "s");
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            // translate to correct answer page
-                            NavHostFragment.findNavController(QuizFragment.this)
-                                    .navigate(R.id.action_quizFragment_to_quizCorrectAnswerFragment);
-                        }
-                    };
-
-                    // update the current problem index
-                    game.updateCurrentProblemIndex();
-                    countDownTimer.start();
-
-                }else{
-                    Toast.makeText(getContext(), "The problem set do not exist, please" +
-                                    " wait for a moment!",
-                            Toast.LENGTH_LONG).show();
+                    mViewModel.setFetchProblemSet(true);
                 }
             }
 
@@ -136,6 +99,178 @@ public class QuizFragment extends Fragment {
 
             }
         });
+
+        final boolean[] ready = {false};
+
+        if(!mViewModel.getFetchProblemSet()){
+//            Log.e("Tag","Signed in");
+            mDialog = ProgressDialog.show(getContext(),"Load problem set","Loading...",true);
+
+            final Handler handler = new Handler();
+            new Thread(){
+                public void run(){
+                        try{
+                            while(!mViewModel.getFetchProblemSet()){
+                                sleep(1000);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } finally{
+                            mDialog.dismiss();
+                            Log.e("Tag","finish fetching problem set");
+
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // put the question and answers into the page
+                                    Game game = mViewModel.getmGame().getValue();
+                                    Problem problem = game.getProblem(game.getCurrentProblemIndex()-1);
+                                    questionView = getActivity().findViewById(R.id.questions1);
+                                    questionView.setText(problem.getQuestion());
+
+                                    ansButton = getActivity().findViewById(R.id.button1);
+                                    ansButton.setText(problem.getAnswer_choices().get(0));
+
+                                    ansButton = getActivity().findViewById(R.id.button2);
+                                    ansButton.setText(problem.getAnswer_choices().get(1));
+
+                                    ansButton = getActivity().findViewById(R.id.button3);
+                                    ansButton.setText(problem.getAnswer_choices().get(2));
+
+                                    ansButton = getActivity().findViewById(R.id.button4);
+                                    ansButton.setText(problem.getAnswer_choices().get(3));
+
+                                    // get the timer
+                                    timeView = getActivity().findViewById(R.id.timeInQuiz);
+                                    int time = game.getTimePerQuestion();
+                                    CountDownTimer countDownTimer = new CountDownTimer(time * 1000, 1 * 1000) {
+
+                                        @Override
+                                        public void onTick(long millisUntilFinished) {
+                                            changeAnswerIndex(mViewModel);
+                                            timeView.setText(millisUntilFinished / 1000 + "s");
+                                        }
+
+                                        @Override
+                                        public void onFinish() {
+                                            // translate to correct answer page
+                                            NavHostFragment.findNavController(QuizFragment.this)
+                                                    .navigate(R.id.action_quizFragment_to_quizCorrectAnswerFragment);
+                                        }
+                                    };
+
+                                    // update the current problem index
+                                    game.updateCurrentProblemIndex();
+                                    countDownTimer.start();
+                                }
+                            });
+                        }
+                }
+            }.start();
+
+        }else{
+            // put the question and answers into the page
+        game = mViewModel.getmGame().getValue();
+        Problem problem = game.getProblem(game.getCurrentProblemIndex()-1);
+        questionView = getActivity().findViewById(R.id.questions1);
+        questionView.setText(problem.getQuestion());
+
+        ansButton = getActivity().findViewById(R.id.button1);
+        ansButton.setText(problem.getAnswer_choices().get(0));
+
+        ansButton = getActivity().findViewById(R.id.button2);
+        ansButton.setText(problem.getAnswer_choices().get(1));
+
+        ansButton = getActivity().findViewById(R.id.button3);
+        ansButton.setText(problem.getAnswer_choices().get(2));
+
+        ansButton = getActivity().findViewById(R.id.button4);
+        ansButton.setText(problem.getAnswer_choices().get(3));
+
+        // get the timer
+        timeView = getActivity().findViewById(R.id.timeInQuiz);
+        int time = game.getTimePerQuestion();
+        CountDownTimer countDownTimer = new CountDownTimer(time * 1000, 1 * 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                changeAnswerIndex(mViewModel);
+                timeView.setText(millisUntilFinished / 1000 + "s");
+            }
+
+            @Override
+            public void onFinish() {
+                // translate to correct answer page
+                NavHostFragment.findNavController(QuizFragment.this)
+                        .navigate(R.id.action_quizFragment_to_quizCorrectAnswerFragment);
+            }
+        };
+
+        // update the current problem index
+        game.updateCurrentProblemIndex();
+        countDownTimer.start();
+        }
+
+//        Log.e("tag", "new thread finsh");
+
+//        // put the question and answers into the page
+//        game = mViewModel.getmGame().getValue();
+//        Problem problem = game.getProblem(game.getCurrentProblemIndex()-1);
+//        questionView = getActivity().findViewById(R.id.questions1);
+//        questionView.setText(problem.getQuestion());
+//
+//        ansButton = getActivity().findViewById(R.id.button1);
+//        ansButton.setText(problem.getAnswer_choices().get(0));
+//
+//        ansButton = getActivity().findViewById(R.id.button2);
+//        ansButton.setText(problem.getAnswer_choices().get(1));
+//
+//        ansButton = getActivity().findViewById(R.id.button3);
+//        ansButton.setText(problem.getAnswer_choices().get(2));
+//
+//        ansButton = getActivity().findViewById(R.id.button4);
+//        ansButton.setText(problem.getAnswer_choices().get(3));
+//
+//        // get the timer
+//        timeView = getActivity().findViewById(R.id.timeInQuiz);
+//        int time = game.getTimePerQuestion();
+//        CountDownTimer countDownTimer = new CountDownTimer(time * 1000, 1 * 1000) {
+//
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                changeAnswerIndex(mViewModel);
+//                timeView.setText(millisUntilFinished / 1000 + "s");
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                // translate to correct answer page
+//                NavHostFragment.findNavController(QuizFragment.this)
+//                        .navigate(R.id.action_quizFragment_to_quizCorrectAnswerFragment);
+//            }
+//        };
+//
+//        // update the current problem index
+//        game.updateCurrentProblemIndex();
+//        countDownTimer.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("Tag", "on Destroy");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e("tag", "on create");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e("tag", "on pause");
     }
 
     public void changeAnswerIndex(final QuizViewModel mViewModel){

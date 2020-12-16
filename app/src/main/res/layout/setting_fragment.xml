@@ -85,10 +85,12 @@
 
     <EditText
         android:id="@+id/input2"
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="name"
+
         android:textSize="24sp"
         android:textColor="@color/white"
         android:fontFamily="@font/fredoka_one"
@@ -101,6 +103,7 @@
         android:id="@+id/settingCreateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="136dp"
         android:background="#DE5D1D"
         android:fontFamily="@font/fredoka_one"
@@ -178,6 +181,7 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="@+id/settingCreateButton"-->
 <!--        app:layout_constraintVertical_bias="0.0" />-->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

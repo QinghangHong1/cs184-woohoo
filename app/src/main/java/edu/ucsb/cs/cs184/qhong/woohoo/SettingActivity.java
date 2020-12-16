@@ -24,15 +24,15 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        FloatingActionButton fab = findViewById(R.id.fab1);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                Intent intent=new Intent(SettingActivity.this, MainActivity.class );
-                startActivity(intent);
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab1);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Code here executes on main thread after user presses button
+//                Intent intent=new Intent(SettingActivity.this, MainActivity.class );
+//                startActivity(intent);
+//            }
+//        });
 
 
 

@@ -15,6 +15,7 @@ public class QuizViewModel extends ViewModel {
     private FirebaseAuth mAuth;
     private DatabaseReference curRoom;
     private MutableLiveData<Integer> code;
+    private boolean fetchProblemSet = false;
 
     public QuizViewModel() {
         mGame = new MutableLiveData<>(new Game());
@@ -42,4 +43,6 @@ public class QuizViewModel extends ViewModel {
         this.code.setValue(code);
     }
     public MutableLiveData<Integer> getCode(){return code;}
+    public boolean getFetchProblemSet(){return fetchProblemSet;}
+    public void setFetchProblemSet(boolean hello){fetchProblemSet = hello;}
 }

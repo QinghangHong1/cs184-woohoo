@@ -16,6 +16,7 @@
 
     <include layout="@layout/content_main" />
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -24,6 +25,7 @@
         app:layout_anchor="@+id/appBarLayout"
         app:layout_anchorGravity="center"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
