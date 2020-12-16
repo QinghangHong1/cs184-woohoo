@@ -24,16 +24,17 @@
 
     <EditText
         android:id="@+id/problem_set_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="228dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/fredoka_one"
         android:hint="enter here"
         android:textColor="#FFFFCD"
-        android:fontFamily="@font/fredoka_one"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <Button
         android:id="@+id/problem_set_name_confirm_button"
@@ -196,7 +197,7 @@
         android:fontFamily="@font/fredoka_one"
         android:text="Upload Your Quiz"
         android:textColor="#FFFFCD"
-        android:textSize="20dp"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
