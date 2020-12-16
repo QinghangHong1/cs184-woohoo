@@ -2,13 +2,17 @@ package edu.ucsb.cs.cs184.qhong.woohoo.ui.settlement;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,16 +40,20 @@ import edu.ucsb.cs.cs184.qhong.woohoo.QuizActivity;
 import edu.ucsb.cs.cs184.qhong.woohoo.QuizViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.R;
 import edu.ucsb.cs.cs184.qhong.woohoo.SettingViewModel;
+import edu.ucsb.cs.cs184.qhong.woohoo.ui.quiz.QuizFragment;
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.Game;
 import edu.ucsb.cs.cs184.qhong.woohoo.utils.Player;
+import edu.ucsb.cs.cs184.qhong.woohoo.utils.Problem;
 
 public class SettlementFragment extends Fragment {
 
     private QuizViewModel quizViewModel;
-
+    private boolean allFinished = false;
     public static SettlementFragment newInstance() {
         return new SettlementFragment();
     }
-
+    private ProgressDialog mDialog;
+    private ArrayList<Player> mPlayers;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -65,18 +73,57 @@ public class SettlementFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference playersRef = firebaseDatabase.getReference("CurrentRoom").child("Room" + quizViewModel.getCode().getValue()).child("players");
-        playersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        playersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {};
                 ArrayList<Player> players = (ArrayList<Player>)snapshot.getValue(t);
-                displayRanking(players);
+
+                for(int i = 0; i < players.size(); i++){
+                    if(!players.get(i).isFinished()){
+                        return;
+                    }
+                }
+                allFinished = true;
+                mPlayers = players;
+//                if (allFinished) {
+//                    displayRanking(players);
+//                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+        if(!allFinished){
+//            Log.e("Tag","Signed in");
+            mDialog = ProgressDialog.show(getContext(),"Waiting for other players to finish","Loading...",true);
+
+            final Handler handler = new Handler();
+            new Thread(){
+                public void run(){
+                    try{
+                        while(!allFinished){
+                            sleep(1000);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally{
+                        mDialog.dismiss();
+                        Log.e("Tag","finish fetching problem set");
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                               displayRanking(mPlayers);
+                            }
+                        });
+                    }
+                }
+            }.start();
+
+        }
+
         final boolean[] isHost = new boolean[1];
         DatabaseReference curRoomHostRef = firebaseDatabase.getReference("CurrentRoom").child("Room" + quizViewModel.getCode().getValue()).child("host_uid");
         curRoomHostRef.addListenerForSingleValueEvent(new ValueEventListener() {

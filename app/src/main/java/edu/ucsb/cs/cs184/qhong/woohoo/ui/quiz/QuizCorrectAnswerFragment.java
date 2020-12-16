@@ -117,6 +117,7 @@ public class QuizCorrectAnswerFragment extends Fragment {
 
                         if(!game.checkIndex()){
                             Log.e("tag", "to settlement");
+                            firebaseDatabase.getReference("CurrentRoom").child("Room" + mViewModel.getCode().getValue()).child("players").child(String.valueOf(userIndex)).child("finished").setValue(true);
                             NavHostFragment.findNavController(QuizCorrectAnswerFragment.this)
                                     .navigate(R.id.action_quizCorrectAnswerFragment_to_settlementFragment);
                         }else{

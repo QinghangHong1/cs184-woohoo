@@ -111,6 +111,7 @@ public class UploadFragment extends Fragment {
                 EditText problem_set_name_text = (EditText)getActivity().findViewById(R.id.problem_set_name);
                 problem_set_name_text.getText().clear();
                 problem_set_name_text.setFocusableInTouchMode(true);
+                getActivity().findViewById(R.id.problem_set_name_confirm_button).setVisibility(View.VISIBLE);
                 uploadViewModel.clearProblemSet();
                 getActivity().findViewById(R.id.question_input_section).setVisibility(View.INVISIBLE);
                 getActivity().findViewById(R.id.finish).setVisibility(View.INVISIBLE);
