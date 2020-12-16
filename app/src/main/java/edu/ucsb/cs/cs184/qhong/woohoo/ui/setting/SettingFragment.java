@@ -11,12 +11,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +34,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.ucsb.cs.cs184.qhong.woohoo.FindViewModel;
 import edu.ucsb.cs.cs184.qhong.woohoo.MainActivity;
@@ -48,7 +57,12 @@ public class SettingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+
         return inflater.inflate(R.layout.setting_fragment, container, false);
+
+
+
     }
 
 //    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -91,6 +105,53 @@ public class SettingFragment extends Fragment {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("ProblemSet");
+        final List<String> list;
+        list = new ArrayList<String>();
+
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot n : snapshot.getChildren()) {
+                    list.add(n.getKey().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner sp = (Spinner) getActivity().findViewById(R.id.spinner);
+        sp.setAdapter(adapter);
+
+//        final TextView tvResult = (TextView) getActivity().findViewById(R.id.textView3);
+//
+//        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+////                //获取Spinner控件的适配器
+//////                Log.e("here",
+//////                        "it is :"+adapter.getItem(position));
+//////                tvResult.setText(adapter.getItem(position));
+////                String selected = list.get(position);
+//                String selected = parent.getItemAtPosition(position).toString();
+//                tvResult.setText(selected);
+////                parent.setVisibility(View.VISIBLE);
+//
+//                Log.e("this",parent.getItemAtPosition(position).toString());
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                Log.e("this", "");
+//            }
+//        });
+
 
         Button settingCreateButton = getActivity().findViewById(R.id.settingCreateButton);
         settingCreateButton.setOnClickListener(new View.OnClickListener() {

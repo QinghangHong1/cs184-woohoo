@@ -4,9 +4,25 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="colorMyPurple">#908CDB</color> 
-    <color name="colorMyDarkPurple">#3753BF</color> 
-    <color name="colorMyBlue">#007FFF</color> 
+
+    <color name="colorMyPurple">#908CDB</color>
+    <color name="colorMyDarkPurple">#3753BF</color>
+    <color name="colorMyBlue">#4091E3</color>
+    <color name="colorMyOrange">#DE5D1D</color>
+    <color name="white">#FFFFFF</color> <!--白色 -->
+    <color name="ivory">#FFFFF0</color> <!--象牙色 -->
+    <color name="lightyellow">#FFFFE0</color> <!--亮黄色 -->
+    <color name="hcBlue">#007FFF</color>
+
+
+<!--    UI风格优化-->
+<!--    淡紫色：RGB：144, 140, 219-->
+<!--    橙色：RGB:222, 93, 29-->
+<!--    蓝色： RGB：64, 145, 227-->
+<!--    紫蓝色：RGB：55, 83, 191-->
+
+
+
     <color name="colorMyDarkOrange">#DE5D1D</color>
     <color name="colorMyWhite">#FFFFFF</color>
     <color name="colorMyOrange">#FF9800</color>
@@ -15,4 +31,5 @@
     <color name="colorMyGreen">#32CD00</color>
     <color name="colorMyRed">#FF4500</color>
     <color name="colorMyGray">#FF4500</color>
+
 </resources>
