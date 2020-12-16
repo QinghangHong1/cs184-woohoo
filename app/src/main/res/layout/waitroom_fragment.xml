@@ -55,8 +55,8 @@
 
     <TextView
         android:id="@+id/numberOfPlayersText1"
-        android:layout_width="4dp"
-        android:layout_height="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/fredoka_one"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

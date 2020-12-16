@@ -75,7 +75,6 @@ public class FriendFragment extends Fragment {
         });
 
         Button friendRequests = root.findViewById(R.id.friendRequests);
-        Log.e("Tag",""+mViewModel.getFriendsPendingList().getValue().size());
         new QBadgeView(getContext()).bindTarget(friendRequests).setBadgeNumber(mViewModel.getFriendsPendingList().getValue().size());
         friendRequests.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,24 +160,7 @@ public class FriendFragment extends Fragment {
                                         findUserAdd.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-//                                                User u = new User();
-//                                                u.setName(s);
-//                                                u.setEmail(sshot.child("email").getValue().toString());
-//                                                if(groups.size()==0){
-//                                                    FriendGroup temp = new FriendGroup();
-//                                                    temp.setGroupName("Default Group");
-//                                                    ArrayList<User> list = new ArrayList<>();
-//                                                    temp.setFriends(list);
-//                                                    groups.add(temp);
-//                                                }
-//                                                groups.get(0).getFriends().add(u);
-//                                                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//                                                FirebaseUser currentUser = mAuth.getCurrentUser();
-//                                                DatabaseReference curUser = myRef.child(currentUser.getUid()).child("friend")
-//                                                        .child("Default Group").child(sshot.getKey());
-//                                                curUser.child("name").setValue(s);
-//                                                curUser.child("email").setValue(sshot.child("email").getValue());
-//                                                curUser.child("icon").setValue("Default profile photo");
+
                                                 NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
                                                 TextView nickname = navigationView.getHeaderView(0).findViewById(R.id.nickname);
                                                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -235,25 +217,12 @@ public class FriendFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    //    public void initList(){
-//        for(int i = 0;i < groupNames.length;i++){
-//            FriendGroup temp = new FriendGroup();
-//            temp.setGroupName(groupNames[i]);
-//            ArrayList<User> list = new ArrayList<>();
-//            for(int j = 0;j < friendNames[i].length;j++){
-//                User u = new User();
-//                u.setName(friendNames[i][j]);
-//                list.add(u);
-//            }
-//            temp.setFriends(list);
-//            groups.add(temp);
-//        }
-//    }
+
     public void initListener(){
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, final int ii, final int i1, long l) {
-                Log.e("Tag",""+groups.size());
+
                 AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                         .setTitle("")
                         .setMessage("Do you want to delete this user?")
@@ -281,7 +250,6 @@ public class FriendFragment extends Fragment {
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                Toast.makeText(getContext(), "默认好友", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
