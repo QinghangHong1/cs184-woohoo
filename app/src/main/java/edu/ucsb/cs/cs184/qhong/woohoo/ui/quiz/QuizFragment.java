@@ -281,14 +281,6 @@ public class QuizFragment extends Fragment {
         final Button button3 = getActivity().findViewById(R.id.button3);
         final Button button4 = getActivity().findViewById(R.id.button4);
 
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewModel.getmGame().getValue().setCurrChooseAnswIndex(0);
-                Log.e("answer", "current answer index change to 0 !");
-            }
-        });
-
         button1.setOnTouchListener(new View.OnTouchListener(){
 
             @Override
@@ -305,18 +297,11 @@ public class QuizFragment extends Fragment {
                         button2.setTextColor(getResources().getColor(R.color.colorMyBlack));
                         button3.setTextColor(getResources().getColor(R.color.colorMyBlack));
                         button4.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        mViewModel.getmGame().getValue().setCurrChooseAnswIndex(0);
+                        Log.e("answer", "current answer index change to 0 !");
                         break;
                 }
                 return true;
-            }
-        });
-
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewModel.getmGame().getValue().setCurrChooseAnswIndex(1);
-                Log.e("answer", "current answer index change to 1 !");
             }
         });
 
@@ -336,17 +321,11 @@ public class QuizFragment extends Fragment {
                         button1.setTextColor(getResources().getColor(R.color.colorMyBlack));
                         button3.setTextColor(getResources().getColor(R.color.colorMyBlack));
                         button4.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        mViewModel.getmGame().getValue().setCurrChooseAnswIndex(1);
+                        Log.e("answer", "current answer index change to 1 !");
                         break;
                 }
                 return true;
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewModel.getmGame().getValue().setCurrChooseAnswIndex(2);
-                Log.e("answer", "current answer index change to 2 !");
             }
         });
 
@@ -366,17 +345,11 @@ public class QuizFragment extends Fragment {
                         button2.setTextColor(getResources().getColor(R.color.colorMyBlack));
                         button1.setTextColor(getResources().getColor(R.color.colorMyBlack));
                         button4.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        mViewModel.getmGame().getValue().setCurrChooseAnswIndex(2);
+                        Log.e("answer", "current answer index change to 2 !");
                         break;
                 }
                 return true;
-            }
-        });
-
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewModel.getmGame().getValue().setCurrChooseAnswIndex(3);
-                Log.e("answer", "current answer index change to 3 !");
             }
         });
 
@@ -396,6 +369,8 @@ public class QuizFragment extends Fragment {
                         button2.setTextColor(getResources().getColor(R.color.colorMyBlack));
                         button1.setTextColor(getResources().getColor(R.color.colorMyBlack));
                         button3.setTextColor(getResources().getColor(R.color.colorMyBlack));
+                        mViewModel.getmGame().getValue().setCurrChooseAnswIndex(3);
+                        Log.e("answer", "current answer index change to 3 !");
                         break;
                 }
                 return true;
