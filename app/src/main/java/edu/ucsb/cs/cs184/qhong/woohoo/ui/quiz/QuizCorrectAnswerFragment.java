@@ -2,6 +2,7 @@ package edu.ucsb.cs.cs184.qhong.woohoo.ui.quiz;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -69,12 +70,16 @@ public class QuizCorrectAnswerFragment extends Fragment {
 
         int userAnswer = game.getCurrChooseAnswIndex();
         if(userAnswer != index){
-            Toast.makeText(getContext(), "Sorry, luck is not stand on your side",
+            Toast.makeText(getContext(), "Sorry, luck does not stand on your side",
                     Toast.LENGTH_LONG).show();
+            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.buzzer_wrong_answer);
+            mediaPlayer.start();
         }else{
             Toast.makeText(getContext(), "Good choice!",
                     Toast.LENGTH_LONG).show();
             game.addScore();
+            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.cheering);
+            mediaPlayer.start();
         }
 
         txtView = getActivity().findViewById(R.id.timeInQuiz2);

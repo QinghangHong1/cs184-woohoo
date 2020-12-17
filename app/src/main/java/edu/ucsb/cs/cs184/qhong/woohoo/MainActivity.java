@@ -135,14 +135,16 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<User> temp = new ArrayList<>();
                 for(DataSnapshot shot:snapshot.getChildren()){
                     User curUser = new User();
-                    curUser.setIcon(shot.child("icon").getValue().toString());
-                    curUser.setEmail(shot.child("email").getValue().toString());
-                    curUser.setName(shot.child("name").getValue().toString());
-                    curUser.setUid(shot.getKey());
-                    temp.add(curUser);
+                    if(shot.child("icon").getValue() != null){
+                        curUser.setIcon(shot.child("icon").getValue().toString());
+                        curUser.setEmail(shot.child("email").getValue().toString());
+                        curUser.setName(shot.child("name").getValue().toString());
+                        curUser.setUid(shot.getKey());
+                        temp.add(curUser);
+                    }
                 }
                 mainViewModel.setFriendsPendingList(temp);
-                Log.e("Tag","Finished loading Pending Friend List" + temp.size());
+//                Log.e("Tag","Finished loading Pending Friend List" + temp.size());
             }
 
             @Override
