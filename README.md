@@ -1,3 +1,6 @@
+Dec 17:
+    fix bug in quiz fragment so that player can choose answer and get correct feedback --HY
+
 Dec 15:
     Fix the bug that quiz activity transition may happen multiple times, add color and font in the quiz and settlement fragments --HY
 
