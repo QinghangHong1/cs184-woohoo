@@ -76,19 +76,22 @@ public class SettlementFragment extends Fragment {
         playersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {};
-                ArrayList<Player> players = (ArrayList<Player>)snapshot.getValue(t);
+                if (snapshot.getValue() != null) {
+                    GenericTypeIndicator<ArrayList<Player>> t = new GenericTypeIndicator<ArrayList<Player>>() {
+                    };
+                    ArrayList<Player> players = (ArrayList<Player>) snapshot.getValue(t);
 
-                for(int i = 0; i < players.size(); i++){
-                    if(!players.get(i).isFinished()){
-                        return;
+                    for (int i = 0; i < players.size(); i++) {
+                        if (!players.get(i).isFinished()) {
+                            return;
+                        }
                     }
-                }
-                allFinished = true;
-                mPlayers = players;
+                    allFinished = true;
+                    mPlayers = players;
 //                if (allFinished) {
 //                    displayRanking(players);
 //                }
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
